@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class TodoServiceImpl implements TodoService {
 
     @Autowired
@@ -25,25 +25,24 @@ public class TodoServiceImpl implements TodoService {
     UserRepository userRepo;
 
     @Override
-    @Transactional(readOnly = true)
     public List<Todo> getFullTodoList() {
         return todoRepo.findAll();
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Todo> getUserTodoList(Long userId)
             throws ResourceNotFoundException {
 
         // Search by id-property of user-entity
         final List<Todo> userTodoList = todoRepo.findAllByUser_Id(userId);
-        if (userTodoList == null)
+        if (userTodoList.isEmpty())
             throw new ResourceNotFoundException();
 
         return userTodoList;
     }
 
     @Override
+    @Transactional
     public Todo addTodo(Todo todoToSave, Long userId)
             throws ResourceAlreadyExistsException, BadResourceException {
 
@@ -63,23 +62,21 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
+    @Transactional
     public void changeTodoItem(Todo newTodo, Long oldTodoId)
             throws ResourceNotFoundException, BadResourceException {
 
-        // Make sure there is an existing item and copy its owner to new item
+        // Make sure there is an existing item and copy its User-property to the new item
         Todo oldTodo = todoRepo.findById(oldTodoId)
                 .orElseThrow(ResourceNotFoundException::new);
-        oldTodo.setId(newTodo.getId());
-        oldTodo.setTitle(newTodo.getTitle());
-        oldTodo.setDescription(newTodo.getDescription());
-//        newTodo.setUser(oldTodo.getUser());
+        newTodo.setUser(oldTodo.getUser());
+        // Avoid printing User-property due to the recursive list property
 
-        System.out.println();
-//        System.out.println(new Gson().toJson(newTodo));
-        todoRepo.save(oldTodo);
+        todoRepo.save(newTodo);
     }
 
     @Override
+    @Transactional
     public void removeTodoItem(Long todoId) throws ResourceNotFoundException {
 
         // Throw 404 if there is no item found in DB

@@ -6,6 +6,7 @@ import dev.aubique.yatl.exception.ResourceAlreadyExistsException;
 import dev.aubique.yatl.exception.ResourceNotFoundException;
 import dev.aubique.yatl.model.Todo;
 import dev.aubique.yatl.service.TodoService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
+@Log4j2
 @RestController
 @RequestMapping("/rest/")
 public class MainController {
@@ -40,6 +42,7 @@ public class MainController {
             return ResponseEntity.ok(userTodo);
         } catch (ResourceNotFoundException ex) {
             // return 404 with null body
+            log.error(ex.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
@@ -51,15 +54,16 @@ public class MainController {
     ) throws URISyntaxException {
         try {
             final Todo newTodo = todoService.addTodo(postTodo, userId);
+            // return 201 with handled item
             return ResponseEntity.created(new URI(
                     "/rest/todo/" + newTodo.getId())).body(newTodo);
         } catch (ResourceAlreadyExistsException ex) {
             // log exception first, then return Conflict (409)
-            //TODO: logger.error(ex.getMessage());
+            log.error(ex.getMessage());
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         } catch (BadResourceException ex) {
             // log exception first, then return Bad Request (400)
-            //TODO: logger.error(ex.getMessage());
+            log.error(ex.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
@@ -77,11 +81,11 @@ public class MainController {
             return ResponseEntity.ok().build();
         } catch (ResourceNotFoundException ex) {
             // log exception first, then return Not Found (404)
-            //TODO: logger.error(ex.getMessage());
+            log.error(ex.getMessage());
             return ResponseEntity.notFound().build();
         } catch (BadResourceException ex) {
             // log exception first, then return Bad Request (400)
-            //TODO: logger.error(ex.getMessage());
+            log.error(ex.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
@@ -94,7 +98,7 @@ public class MainController {
             return ResponseEntity.ok().build();
         } catch (ResourceNotFoundException ex) {
             // log exception then return Not Found (404)
-            //TODO: logger.error(ex.getMessage());
+            log.error(ex.getMessage());
             return ResponseEntity.notFound().build();
         }
     }
