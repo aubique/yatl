@@ -6,6 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Repository class for <code>_Todo</code> domain objects.
+ * All method names are compliant with Spring Data naming conventions.
+ */
 @Repository
 public interface TodoRepository extends JpaRepository<Todo, Long> {
 

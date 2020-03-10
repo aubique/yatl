@@ -6,6 +6,9 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * Simple JavaBean domain object representing the user who the TodoItem belongs to
+ */
 @Data
 @Entity
 @Table(name = "users")

@@ -8,6 +8,11 @@ import org.springframework.context.annotation.Bean;
 
 import java.sql.SQLException;
 
+/**
+ * YetAnotherTodoList CRUD Application
+ *
+ * @author aubique
+ */
 @SpringBootApplication(exclude = {JacksonAutoConfiguration.class})
 public class YatlApplication {
 

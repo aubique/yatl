@@ -16,10 +16,13 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
+/**
+ * Controller used to showcase the REST API
+ */
 @Log4j2
 @RestController
 @RequestMapping("/rest/")
-public class MainController {
+public class ApiController {
 
     @Autowired
     private Gson gson;
