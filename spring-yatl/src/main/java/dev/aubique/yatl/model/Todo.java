@@ -2,10 +2,12 @@ package dev.aubique.yatl.model;
 
 import com.google.gson.annotations.Expose;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
+/**
+ * Simple JavaBean domain object representing one _todo card.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
