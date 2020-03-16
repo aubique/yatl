@@ -23,6 +23,7 @@ public class User {
     @Expose
     private String username;
 
+    //@ToString.Exclude
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Todo> todoList;
 }
