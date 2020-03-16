@@ -1,0 +1,11 @@
+@import 'src/assets/styles/vars.scss';
+
+.container {
+  width: 100%;
+  max-width: 45rem;
+  margin: 1em auto;
+  padding: 1em;
+  overflow: auto;
+  background-color: #fafafa;
+  box-shadow: 0 .25rem 1rem rgba(black, .25);
+}
