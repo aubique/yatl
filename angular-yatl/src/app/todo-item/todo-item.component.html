@@ -1,1 +1,25 @@
-<span>ID: {{todoItem.todoItem.id}} / Priority: {{todoItem.todoItem.priority}}</span>
+<div class="item-container" fxLayout="row" fxLayoutAlign="begin center">
+
+  <mat-checkbox color="primary"
+                class="mat-checkbox"
+                [name]="todoItem.title"
+                [(ngModel)]="todoItem.completed"
+                (change)="onCompleteToggle()"
+                fxFlex>
+
+    <span [class.completed]="todoItem.completed">
+      {{todoItem.title}}
+      <small>[id:{{todoItem.todoItem.id}},priority:{{todoItem.todoItem.priority}}]</small>
+    </span>
+  </mat-checkbox>
+
+  <button
+    mat-mini-fab
+    color="accent"
+    aria-label="Edit task"
+    (click)="openDialog()"
+    [disabled]="todoItem.completed"
+  >
+    <mat-icon>edit</mat-icon>
+  </button>
+</div>

@@ -1,14 +1,21 @@
 <div class="list-container">
-  <mat-list
-    #todoList="cdkDropList"
-    (cdkDropListDropped)="onDropInside($event)"
-    [cdkDropListData]="items"
-    cdkDropList
+  <mat-list #todoList="cdkDropList"
+            (cdkDropListDropped)="onDropInside($event)"
+            [cdkDropListData]="items"
+            cdkDropList
   >
+
     <!--Task draggable wrapper-->
-    <mat-list-item *ngFor="let item of items" cdkDrag>
-      <!--Task content component-->
-      <app-todo-item [todoItem]="item"></app-todo-item>
+    <mat-list-item class="drop-item-wrapper"
+                   *ngFor="let item of items"
+                   cdkDrag>
+
+      <mat-card fxFlex>
+        <!--Task content component-->
+        <app-todo-item [todoItem]="item" fxFlexFill></app-todo-item>
+      </mat-card>
+
     </mat-list-item>
+
   </mat-list>
 </div>

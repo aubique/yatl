@@ -1,34 +1,43 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {DragDropModule} from '@angular/cdk/drag-drop';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
-import {FlexLayoutModule} from '@angular/flex-layout';
-import {MatCardModule} from '@angular/material/card';
-import {MatListModule} from '@angular/material/list';
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
+import {MatCardModule} from "@angular/material/card";
+import {MatListModule} from "@angular/material/list";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    FlexLayoutModule,
-    DragDropModule,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
     MatCardModule,
     MatListModule,
+    MatProgressBarModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
   ],
   exports: [
-    FlexLayoutModule,
-    DragDropModule,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
     MatCardModule,
     MatListModule,
+    MatProgressBarModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
   ]
 })
 export class MaterialModule {

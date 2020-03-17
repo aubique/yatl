@@ -1,0 +1,13 @@
+<form [formGroup]="form" (ngSubmit)="saveDialog()">
+
+  <mat-toolbar color="primary">{{dialogTitle}}</mat-toolbar>
+  <mat-form-field appearance="fill">
+    <mat-label>Title</mat-label>
+    <input matInput
+           formControlName="title"
+           placeholder="Name your task">
+  </mat-form-field>
+
+  <!--      <button mat-raised-button>Close</button>-->
+  <button mat-raised-button type="submit">Save</button>
+</form>
