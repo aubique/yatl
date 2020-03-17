@@ -1,3 +1,13 @@
-.item {
+.list-container {
+  //min-width: 100%;
+  //border: 1px solid blue;
+}
 
+.drop-item-wrapper {
+  margin: 2rem 0;
+  cursor: pointer;
+}
+
+::ng-deep .mat-list-item-content {
+  padding: 0 !important;
 }

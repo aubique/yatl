@@ -1,5 +1,6 @@
 @import url('~@angular/material/prebuilt-themes/indigo-pink.css');
 @import url('https://fonts.googleapis.com/css?family=Roboto');
+@import 'src/assets/styles/vars';
 
 * {
   box-sizing: border-box;
@@ -21,6 +22,10 @@ body {
 
 .rounded {
   border-radius: 0.2em;
+}
+
+.faded {
+  color: $color-faded;
 }
 
 .center-screen-x {

@@ -23,6 +23,6 @@ export class DataService {
     for (let index in this.itemList)
       if (this.itemList.hasOwnProperty(index))
         this.itemList[index].todoItem.priority = Number(index) + Number(1);
-    //TODO: do a patch request to Back-end
+    //TODO: do a patch request to update priority for every core-entity TodoItem{id, priority}
   }
 }
