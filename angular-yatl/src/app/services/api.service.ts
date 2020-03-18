@@ -1,29 +1,35 @@
 import {Injectable} from '@angular/core';
 import {TodoDetails} from '../shared/todo-details';
 import {HttpClient} from '@angular/common/http';
-import {DataService} from './data.service';
 import {map} from 'rxjs/operators';
+import {Observable} from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class ApiService {
 
-  constructor(private http: HttpClient, private storage: DataService) {
+  private currentUserId = 1;
+
+  constructor(private http: HttpClient) {
   }
 
-  loadData() {
-    this.storage.$data = this.http
+  public doGetRequest(): Observable<Array<TodoDetails>> {
+    return this.http
       .get('/assets/mock/todo-list.json')
       .pipe(map(json => json as Array<TodoDetails>));
+  }
 
-    this.storage.$data.subscribe(data => {
-      // Clear array and fill with received data
-      this.storage.clearArray();
-      data.forEach((array) => this.storage.itemList.push(array));
-      // Count completed and non-completed items
-      this.storage.ongoing = data.filter(array => (array.completed == false)).length;
-      this.storage.completed = data.filter(array => (array.completed == true)).length;
-    });
+  public doPostRequest(todoItemToSend: TodoDetails): Observable<TodoDetails> {
+    //TODO: do a real POST request to create new item
+    console.log('Do create request');
+    return this.http
+      .get('/assets/mock/new-todo.json')
+      .pipe(map(json => json as TodoDetails));
+  }
+
+  public doPutRequest(todoItemToSend: TodoDetails): void {
+    //TODO: do a real PUT request to update that item
+    console.log('Do put request');
   }
 }

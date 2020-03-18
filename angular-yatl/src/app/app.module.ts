@@ -9,10 +9,11 @@ import {HeaderComponent} from './header/header.component';
 import {TodoDialogComponent} from './todo-dialog/todo-dialog.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {FlexLayoutModule} from "@angular/flex-layout";
-import {DragDropModule} from "@angular/cdk/drag-drop";
-import {MaterialModule} from "./material.module";
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {MaterialModule} from './material.module';
+import {DialogService} from './services/dialog.service';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import {MaterialModule} from "./material.module";
     FlexLayoutModule,
     FormsModule,
   ],
+  exports: [TodoDialogComponent],
   entryComponents: [TodoDialogComponent],
   providers: [{
     provide: MatDialogRef,
@@ -39,7 +41,8 @@ import {MaterialModule} from "./material.module";
   }, {
     provide: MAT_DIALOG_DATA,
     useValue: {}
-  }, HttpClient
+  }, HttpClient,
+    DialogService
   ],
   bootstrap: [AppComponent]
 })

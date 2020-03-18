@@ -3,10 +3,12 @@
 
     <p fxFlex>
       Tasks
-      <span class="faded">({{storage.ongoing}})</span>
+      <span class="faded">({{facade.getUndoneListSize()}})</span>
     </p>
 
-    <button class="add-button" mat-fab>
+    <button (click)="onClickAdd()"
+            class="add-button"
+            mat-fab>
       <mat-icon>add</mat-icon>
     </button>
 
