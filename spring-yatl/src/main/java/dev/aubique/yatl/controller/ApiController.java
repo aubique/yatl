@@ -4,8 +4,8 @@ import com.google.gson.Gson;
 import dev.aubique.yatl.exception.BadResourceException;
 import dev.aubique.yatl.exception.ResourceAlreadyExistsException;
 import dev.aubique.yatl.exception.ResourceNotFoundException;
-import dev.aubique.yatl.model.Todo;
-import dev.aubique.yatl.service.TodoService;
+import dev.aubique.yatl.model.Task;
+import dev.aubique.yatl.service.YatlService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,21 +28,21 @@ public class ApiController {
     private Gson gson;
 
     @Autowired
-    private TodoService todoService;
+    private YatlService yatlService;
 
     @GetMapping("user")
-    public ResponseEntity<List<Todo>> readTodoAll() {
-        final List<Todo> userTodo = todoService.getFullTodoList();
+    public ResponseEntity<List<Task>> readTodoAll() {
+        final List<Task> userTask = yatlService.getFullTodoList();
         // return 200 with JSON body
-        return ResponseEntity.ok(userTodo);
+        return ResponseEntity.ok(userTask);
     }
 
     @GetMapping("user/{userId:[\\d]+}")
-    public ResponseEntity<List<Todo>> readTodoOne(@PathVariable Long userId) {
+    public ResponseEntity<List<Task>> readTodoOne(@PathVariable Long userId) {
         try {
-            final List<Todo> userTodo = todoService.getUserTodoList(userId);
+            final List<Task> userTask = yatlService.getUserTodoList(userId);
             // return 200 with JSON
-            return ResponseEntity.ok(userTodo);
+            return ResponseEntity.ok(userTask);
         } catch (ResourceNotFoundException ex) {
             // return 404 with null body
             log.error(ex.getMessage());
@@ -53,13 +53,13 @@ public class ApiController {
     @PostMapping("user/{userId:[\\d]+}")
     public ResponseEntity<?> createTodo(
             @PathVariable Long userId,
-            @RequestBody Todo postTodo
+            @RequestBody Task postTask
     ) throws URISyntaxException {
         try {
-            final Todo newTodo = todoService.addTodo(postTodo, userId);
+            final Task newTask = yatlService.addTodo(postTask, userId);
             // return 201 with handled item
             return ResponseEntity.created(new URI(
-                    "/rest/todo/" + newTodo.getId())).body(newTodo);
+                    "/rest/todo/" + newTask.getId())).body(newTask);
         } catch (ResourceAlreadyExistsException ex) {
             // log exception first, then return Conflict (409)
             log.error(ex.getMessage());
@@ -73,14 +73,14 @@ public class ApiController {
 
     @PutMapping("todo/{todoId:[\\d]+}")
     public ResponseEntity<Void> updateTodo(
-            @RequestBody Todo todoToUpdate,
+            @RequestBody Task taskToUpdate,
             @PathVariable Long todoId) {
         try {
-            System.out.println(new Gson().toJson(todoToUpdate));
+            System.out.println(new Gson().toJson(taskToUpdate));
             System.out.println("id: " + todoId);
 
-            todoToUpdate.setId(todoId);
-            todoService.changeTodoItem(todoToUpdate, todoId);
+            taskToUpdate.setId(todoId);
+            yatlService.changeTodo(taskToUpdate, todoId);
             return ResponseEntity.ok().build();
         } catch (ResourceNotFoundException ex) {
             // log exception first, then return Not Found (404)
@@ -96,7 +96,7 @@ public class ApiController {
     @DeleteMapping("todo/{todoId:\\d]+}")
     public ResponseEntity<Void> deleteTodo(@PathVariable Long todoId) {
         try {
-            todoService.removeTodoItem(todoId);
+            yatlService.removeTodo(todoId);
             // return 200 with null body
             return ResponseEntity.ok().build();
         } catch (ResourceNotFoundException ex) {
