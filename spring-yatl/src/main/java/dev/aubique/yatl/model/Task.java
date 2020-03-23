@@ -6,24 +6,27 @@ import lombok.*;
 import javax.persistence.*;
 
 /**
- * Simple JavaBean domain object representing one _todo card.
+ * Simple JavaBean domain object representing final Task
+ * That's the one-to-one Child of {@link TaskCore} instance
+ * It stores the final entity which is exposed from API
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "todo")
-public class Todo {
+@Table(name = "task")
+public class Task {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Expose
     private Long id;
 
+    @ToString.Exclude
     @Expose
-    @Column(name = "completed", nullable = false)
-    private Boolean completed;
+    @MapsId
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "task_id")
+    private TaskCore taskCore;
 
     @Expose
     @Column(name = "title", length = 32, nullable = false)

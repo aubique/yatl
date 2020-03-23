@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import java.sql.SQLException;
 
 /**
- * YetAnotherTodoList CRUD Application
+ * Spring configuration class main application bootstrap point.
  *
  * @author aubique
  */
