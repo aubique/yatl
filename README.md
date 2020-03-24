@@ -1,6 +1,6 @@
 # Yet Another Todo List
+Todo List app consisting Angular and Spring Boot
 
-<small> Simple todo list that works along with back-end server.</small>
 <table>
     <thead>
         <tr>
@@ -9,8 +9,8 @@
     </thead>
     <tbody>
         <tr valign="top">
-            <td><img src="./angular-yatl/misc/1.jpg"></a></td>
-            <td><img src="./angular-yatl/misc/2.jpg"></a></td>
+            <td><img src="./angular-yatl/misc/scr1.jpg"></a></td>
+            <td><img src="./angular-yatl/misc/scr2.jpg"></a></td>
         </tr>
     </tbody>
 </table>

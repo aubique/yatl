@@ -4,6 +4,8 @@ import dev.aubique.yatl.exception.BadResourceException;
 import dev.aubique.yatl.exception.ResourceAlreadyExistsException;
 import dev.aubique.yatl.exception.ResourceNotFoundException;
 import dev.aubique.yatl.model.Task;
+import dev.aubique.yatl.model.TaskCore;
+import dev.aubique.yatl.model.TaskPriorityDto;
 import dev.aubique.yatl.model.User;
 import dev.aubique.yatl.repository.TaskCoreRepository;
 import dev.aubique.yatl.repository.TaskRepository;
@@ -50,16 +52,16 @@ public class YatlServiceImpl implements YatlService {
     public Task addTodo(Task taskToSave, Long userId)
             throws ResourceAlreadyExistsException, BadResourceException {
 
-        // Verify the user exists, then paste it to the new item
+        // Verify whether the user exists, then paste it to the new item
         // Otherwise throw 400 (bad request)
         final User existingUser = userRepo.findById(userId)
                 .orElseThrow(BadResourceException::new);
         taskToSave.setUser(existingUser);
-        // Hot-fix
+        // TODO: refactor this hot-fix
         taskToSave.getTaskCore().setId(null);
 
-        // Build an example to look for existing item
-        // Throw 409 (conflict) if there collisions with the
+        // Build an example to search the existing item
+        // Throw 409 (conflict) if there any collisions occurred (existing)
         Example<Task> exampleTodo = Example.of(taskToSave);
         if (taskRepo.exists(exampleTodo))
             throw new ResourceAlreadyExistsException();
@@ -84,10 +86,37 @@ public class YatlServiceImpl implements YatlService {
 
     @Override
     @Transactional
+    public void modifyTodoPriority(TaskPriorityDto partialTask, Long taskId)
+            throws ResourceNotFoundException {
+
+        // Find the existing Task, if not found throw 404
+        // Specify priority-field from TaskPriorityDto
+        Task targetTask = taskRepo.findById(taskId)
+                .orElseThrow(ResourceNotFoundException::new);
+        targetTask.setComplete(partialTask.getComplete());
+
+        taskRepo.save(targetTask);
+    }
+
+    @Override
+    @Transactional
+    public void modifyCoreList(List<TaskCore> taskCoreList, Long userId)
+            throws BadResourceException {
+
+        // Throw 400 if neither id nor priority field is presented
+        // If it's OK then save a List of TaskCore's
+        if (taskCoreList.stream().anyMatch(core -> (core.getId() == null) || core.getPriority() == null)) {
+            throw new BadResourceException();
+        }
+        taskCoreRepo.saveAll(taskCoreList);
+    }
+
+    @Override
+    @Transactional
     public void removeTodo(Long taskId) throws ResourceNotFoundException {
 
         // Throw 404 if there is no item found in DB
-        final Task taskToDelete = taskRepo.findById(taskId)
+        taskRepo.findById(taskId)
                 .orElseThrow(ResourceNotFoundException::new);
 
         taskRepo.deleteById(taskId);

@@ -3,6 +3,7 @@ package dev.aubique.yatl;
 import com.google.gson.Gson;
 import dev.aubique.yatl.model.Task;
 import dev.aubique.yatl.model.TaskCore;
+import dev.aubique.yatl.model.TaskPriorityDto;
 import dev.aubique.yatl.model.User;
 import dev.aubique.yatl.repository.TaskRepository;
 import dev.aubique.yatl.repository.UserRepository;
@@ -11,12 +12,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.ArrayList;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
@@ -25,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class HttpReqTaskIntegrationTest {
 
     private static final Long USER_ID = 1L;
-    private static final Long TASK_ID = 4L;
+    private static final Long TASK_ID = 3L;
     private static final String TASK_TITLE = "task-item-" + TASK_ID;
     //  private static final String TASK_DESC = TASK_ID + "th task item";
     private static final Boolean TASK_UNDONE = false;
@@ -69,7 +72,7 @@ public class HttpReqTaskIntegrationTest {
 
         // Get task by user-id
         mockMvc.perform(post("/rest/user/{userId}", USER_ID)
-                .contentType("application/json")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
 //                .param("param1", "value1")
                 .content(gson.toJson(testTask)))
                 .andExpect(status().isCreated());
@@ -86,11 +89,55 @@ public class HttpReqTaskIntegrationTest {
 
         // Modify existing task
         mockMvc.perform(put("/rest/todo/{todoId}", NEW_TASK_ID)
-                .contentType("application/json")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(gson.toJson(testTask)))
                 .andExpect(status().isOk());
 
         Task modifiedTask = taskRepository.findByTitle(testTask.getTitle());
         assertThat(modifiedTask.getTaskCore().getPriority()).isEqualTo(testTask.getTaskCore().getPriority());
+    }
+
+    @Test
+    void patchCoreListControllerTest() throws Exception {
+        final var validCore1 = TaskCore.builder().id(2L).priority(1).build();
+        final var validCore2 = TaskCore.builder().id(1L).priority(2).build();
+        final var invalidCore = TaskCore.builder().priority(2).build();
+        final var mockCoreList = new ArrayList<>();
+
+        // Fill out with valid TaskCore's
+        mockCoreList.add(validCore1);
+        mockCoreList.add(validCore2);
+        System.out.println(gson.toJson(mockCoreList));
+        mockMvc.perform(patch("/rest/user/{userId}", USER_ID)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(gson.toJson(mockCoreList)))
+                .andExpect(status().isOk());
+
+        // Add invalid TaskCore
+        mockCoreList.add(invalidCore);
+        System.out.println(gson.toJson(mockCoreList));
+        mockMvc.perform(patch("/rest/user/{userId}", USER_ID)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(gson.toJson(mockCoreList)))
+                .andExpect(status().is4xxClientError());
+
+        assertThat(taskRepository.findById(2L).get().getTaskCore().getPriority()).isEqualTo(1);
+    }
+
+    @Test
+    void patchPartialTodoControllerTest() throws Exception {
+        final var TODO_ID = 2L;
+        final var COMPLETE_TOGGLE = true;
+        var mockTaskDto = new TaskPriorityDto();
+        mockTaskDto.setComplete(COMPLETE_TOGGLE);
+
+        System.out.println(mockTaskDto);
+        mockMvc.perform(patch("/rest/todo/{todoId}", TODO_ID)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(gson.toJson(mockTaskDto)))
+                .andExpect(status().isOk());
+
+        final var patchedTodo = taskRepository.findById(TODO_ID).get();
+        assertThat(patchedTodo.getComplete()).isEqualTo(COMPLETE_TOGGLE);
     }
 }

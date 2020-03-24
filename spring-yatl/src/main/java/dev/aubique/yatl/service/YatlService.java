@@ -5,6 +5,7 @@ import dev.aubique.yatl.exception.ResourceAlreadyExistsException;
 import dev.aubique.yatl.exception.ResourceNotFoundException;
 import dev.aubique.yatl.model.Task;
 import dev.aubique.yatl.model.TaskCore;
+import dev.aubique.yatl.model.TaskPriorityDto;
 import dev.aubique.yatl.model.User;
 
 import java.util.List;
@@ -42,4 +43,9 @@ public interface YatlService {
      * Delete a {@link Task} in persistence by {@link TaskCore} ID
      */
     void removeTodo(Long taskId) throws ResourceNotFoundException;
+
+    void modifyCoreList(List<TaskCore> taskCoreList, Long userId) throws BadResourceException;
+
+    //TODO: document
+    void modifyTodoPriority(TaskPriorityDto taskDto, Long todoId) throws ResourceNotFoundException;
 }

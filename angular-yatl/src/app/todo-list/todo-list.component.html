@@ -1,12 +1,12 @@
 <div class="list-container">
-  <mat-list cdkDropList
+  <mat-list (cdkDropListDropped)="onDropInside($event)"
             *ngIf="items.length > 0; else noItems"
-            (cdkDropListDropped)="onDropInside($event)"
-            [cdkDropListData]="items">
+            [cdkDropListData]="items"
+            cdkDropList>
 
     <!--Task draggable wrapper-->
-    <mat-list-item cdkDrag
-                   *ngFor="let item of items"
+    <mat-list-item *ngFor="let item of items"
+                   cdkDrag
                    class="drop-item-wrapper">
 
       <mat-card fxFlex>

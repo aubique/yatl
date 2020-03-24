@@ -2,6 +2,7 @@ import {Injectable, OnInit} from '@angular/core';
 import {RepositoryService} from "./repository.service";
 import {ApiService} from './api.service';
 import {TaskFull} from '../model/task-full';
+import {TaskCore} from '../model/task-core';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +19,12 @@ export class FacadeService implements OnInit {
   }
 
   public retrieveItems(): void {
-    this.api.doGetRequest().subscribe(
-      (fetchedList) => {
+    const compareByPriorityFn = ((a, b) => a.taskCore.priority - b.taskCore.priority);
+    this.api.doGetRequest()
+      .subscribe((fetchedList) => {
+        fetchedList.sort(compareByPriorityFn);
         this.storage.replaceList(fetchedList);
+        this.storage.countUndoneTasks();
         // Debug output
         console.log('Debug: GET request (JSON)');
         console.log(fetchedList);
@@ -28,12 +32,14 @@ export class FacadeService implements OnInit {
   }
 
   public createItem(taskToCreate: TaskFull): void {
-    this.api.doPostRequest(taskToCreate).subscribe((fetchedNewItem) => {
-      this.storage.addItem(fetchedNewItem);
-      // Debut output
-      console.log('Debug: POST request (201)');
-      console.log(fetchedNewItem);
-    });
+    this.api.doPostRequest(taskToCreate)
+      .subscribe((fetchedNewItem) => {
+        this.storage.addItem(fetchedNewItem);
+        this.storage.countUndoneTasks();
+        // Debut output
+        console.log('Debug: POST request (201)');
+        console.log(fetchedNewItem);
+      });
   }
 
   public updateItem(taskToModify: TaskFull): void {
@@ -46,7 +52,9 @@ export class FacadeService implements OnInit {
 
   public deleteItem(todoItem: TaskFull): void {
     this.storage.removeItem(todoItem);
+    this.storage.countUndoneTasks();
     this.api.doDeleteRequest(todoItem).subscribe(() => {
+      this.updatePriority();
       // Debug output
       console.log('Debug: DELETE request (200)');
       console.log(todoItem);
@@ -55,12 +63,20 @@ export class FacadeService implements OnInit {
 
   public updatePriority(): void {
     this.storage.updatePriorityByIndex();
-    //TODO: call a patch request to update priority for every TodoCore{id, priority}
+    const coreList: Array<TaskCore> = this.storage.itemList.map(e => e.taskCore);
+    this.api.doPatchCoreList(coreList).subscribe(() => {
+      console.log('Debug: PATCH request (200)');
+      console.log(coreList);
+    });
   }
 
   public synchronizeComplete(task: TaskFull): void {
     this.storage.countUndoneTasks();
-    this.updateItem(task);
+    this.api.doPatchTodoPriority(task).subscribe(() => {
+      console.log('Debug: PATCH request (200)');
+      console.log(task);
+    });
+    // this.updateItem(task);
   }
 
   public getItemList(): Array<TaskFull> {
