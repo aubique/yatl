@@ -22,30 +22,35 @@ export class FacadeService implements OnInit {
       (fetchedList) => {
         this.storage.replaceList(fetchedList);
         // Debug output
-        console.log('Debug: GET request');
+        console.log('Debug: GET request (JSON)');
         console.log(fetchedList);
       });
   }
 
   public createItem(taskToCreate: TaskFull): void {
-    this.api.doPostRequest(taskToCreate).subscribe(
-      (fetchedNewItem) => {
-        this.storage.addItem(fetchedNewItem);
-        // Debut output
-        console.log('Debug: POST request');
-        console.log(fetchedNewItem);
-      });
+    this.api.doPostRequest(taskToCreate).subscribe((fetchedNewItem) => {
+      this.storage.addItem(fetchedNewItem);
+      // Debut output
+      console.log('Debug: POST request (201)');
+      console.log(fetchedNewItem);
+    });
   }
 
   public updateItem(taskToModify: TaskFull): void {
-    // TODO: do an update request to the server
-    this.api.doPutRequest(taskToModify);
+    this.api.doPutRequest(taskToModify).subscribe(() => {
+      // Debug output
+      console.log('Debug: PUT request (200)');
+      console.log(taskToModify);
+    });
   }
 
   public deleteItem(todoItem: TaskFull): void {
-    //TODO: do a delete request to delete that item
-    // this.api.doDeleteRequest(taskCore).subscribe();
     this.storage.removeItem(todoItem);
+    this.api.doDeleteRequest(todoItem).subscribe(() => {
+      // Debug output
+      console.log('Debug: DELETE request (200)');
+      console.log(todoItem);
+    });
   }
 
   public updatePriority(): void {
@@ -55,7 +60,7 @@ export class FacadeService implements OnInit {
 
   public synchronizeComplete(task: TaskFull): void {
     this.storage.countUndoneTasks();
-    //TODO: call a put request to update this TaskCore{TodoCore, title, complete}
+    this.updateItem(task);
   }
 
   public getItemList(): Array<TaskFull> {

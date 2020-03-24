@@ -94,7 +94,7 @@ public class ApiController {
         }
     }
 
-    @DeleteMapping("todo/{todoId:\\d]+}")
+    @DeleteMapping("todo/{todoId:[\\d]+}")
     public ResponseEntity<Void> deleteTodo(@PathVariable Long todoId) {
         try {
             yatlService.removeTodo(todoId);
