@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {TodoDetails} from '../shared/todo-details';
+import {TaskFull} from '../model/task-full';
 import {DialogService} from '../services/dialog.service';
 import {FacadeService} from '../services/facade.service';
 
@@ -12,7 +12,7 @@ import {FacadeService} from '../services/facade.service';
 export class TodoItemComponent {
 
   @Input()
-  todoItem: TodoDetails;
+  taskItem: TaskFull;
 
   constructor(
     private facade: FacadeService,
@@ -21,14 +21,14 @@ export class TodoItemComponent {
   }
 
   onCompleteToggle(): void {
-    this.facade.synchronizeComplete(this.todoItem);
+    this.facade.synchronizeComplete(this.taskItem);
   }
 
   onClickEdit(): void {
-    this.dialogService.editItemDialog(this.todoItem);
+    this.dialogService.editItemDialog(this.taskItem);
   }
 
   onClickDelete(): void {
-    this.facade.deleteItem(this.todoItem);
+    this.facade.deleteItem(this.taskItem);
   }
 }

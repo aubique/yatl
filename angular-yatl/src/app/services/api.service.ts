@@ -1,35 +1,39 @@
 import {Injectable} from '@angular/core';
-import {TodoDetails} from '../shared/todo-details';
-import {HttpClient} from '@angular/common/http';
-import {map} from 'rxjs/operators';
-import {Observable} from "rxjs";
+import {TaskFull} from '../model/task-full';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class ApiService {
 
-  private currentUserId = 1;
+  private URL_USER_1: string;
 
   constructor(private http: HttpClient) {
+    this.URL_USER_1 = 'http://localhost:8080/rest/user/1';
   }
 
-  public doGetRequest(): Observable<Array<TodoDetails>> {
+  public doGetRequest(): Observable<Array<TaskFull>> {
     return this.http
-      .get('/assets/mock/todo-list.json')
-      .pipe(map(json => json as Array<TodoDetails>));
+      .get<Array<TaskFull>>(this.URL_USER_1);
+    //.get<Array<TaskFull>>('/assets/mock/get-request.json');
   }
 
-  public doPostRequest(todoItemToSend: TodoDetails): Observable<TodoDetails> {
+  public doPostRequest(itemToSend: TaskFull): Observable<TaskFull> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
     //TODO: do a real POST request to create new item
-    console.log('Do create request');
     return this.http
-      .get('/assets/mock/new-todo.json')
-      .pipe(map(json => json as TodoDetails));
+      .post<TaskFull>(this.URL_USER_1, itemToSend, httpOptions);
+    //.get<TaskFull>('/assets/mock/put-request.json');
   }
 
-  public doPutRequest(todoItemToSend: TodoDetails): void {
+  public doPutRequest(itemToSend: TaskFull): void {
     //TODO: do a real PUT request to update that item
-    console.log('Do put request');
+    console.log('PUT request is mocked');
   }
 }

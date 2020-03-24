@@ -21,6 +21,7 @@ import java.util.List;
  */
 @Log4j2
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/rest/")
 public class ApiController {
 

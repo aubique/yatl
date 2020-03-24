@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-import {TodoDetails} from '../shared/todo-details';
+import {TaskFull} from '../model/task-full';
 import {FacadeService} from '../services/facade.service';
 
 @Component({
@@ -10,7 +10,7 @@ import {FacadeService} from '../services/facade.service';
 })
 export class TodoListComponent implements OnInit {
 
-  items: Array<TodoDetails>;
+  items: Array<TaskFull>;
 
   constructor(public facade: FacadeService) {
   }
@@ -20,7 +20,7 @@ export class TodoListComponent implements OnInit {
     this.items = this.facade.getItemList();
   }
 
-  onDropInside(event: CdkDragDrop<any>) {
+  onDropInside(event: CdkDragDrop<TaskFull[]>) {
     console.log('onDropInside');
     moveItemInArray(
       event.container.data,

@@ -24,12 +24,8 @@ public class TaskCore {
     @Expose
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "id", nullable = false)
+//  @Column(name = "id", nullable = false) // If we set ID manually
     private Long id;
-
-    @Expose
-    @Column(name = "complete", nullable = false)
-    private Boolean complete;
 
     @Expose
     @Column(name = "priority", nullable = false)
