@@ -23,7 +23,7 @@ export class TodoDialogComponent {
     this.titleItem = taskItem.title;
     // Build a FormGroup
     this.form = fb.group({
-      'title': [taskItem.title, [Validators.required, Validators.pattern('^\\S*$')]],
+      'title': [taskItem.title, [Validators.required, Validators.pattern('^[a-zA-Z0-9 _-]+$')]],
     });
   }
 

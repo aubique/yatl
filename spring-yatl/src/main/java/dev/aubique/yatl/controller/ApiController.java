@@ -5,6 +5,8 @@ import dev.aubique.yatl.exception.BadResourceException;
 import dev.aubique.yatl.exception.ResourceAlreadyExistsException;
 import dev.aubique.yatl.exception.ResourceNotFoundException;
 import dev.aubique.yatl.model.Task;
+import dev.aubique.yatl.model.TaskCore;
+import dev.aubique.yatl.model.TaskPriorityDto;
 import dev.aubique.yatl.service.YatlService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,14 +74,42 @@ public class ApiController {
         }
     }
 
+    @PatchMapping("user/{userId:[\\d]+}")
+    public ResponseEntity<Void> patchCoreList(
+            @PathVariable Long userId,
+            @RequestBody List<TaskCore> taskCoreList
+    ) {
+        try {
+            yatlService.modifyCoreList(taskCoreList, userId);
+            return ResponseEntity.ok().build();
+        } catch (BadResourceException ex) {
+            // Bad Request (400)
+            log.error(ex.getMessage());
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PatchMapping("todo/{todoId:[\\d]+}")
+    public ResponseEntity<Void> patchTodo(
+            @PathVariable Long todoId,
+            @RequestBody TaskPriorityDto partialTask
+    ) {
+        try {
+            yatlService.modifyTodoPriority(partialTask, todoId);
+            return ResponseEntity.ok().build();
+        } catch (ResourceNotFoundException ex) {
+            // Not Found (404)
+            log.error(ex.getMessage());
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PutMapping("todo/{todoId:[\\d]+}")
     public ResponseEntity<Void> updateTodo(
-            @RequestBody Task taskToUpdate,
-            @PathVariable Long todoId) {
+            @PathVariable Long todoId,
+            @RequestBody Task taskToUpdate
+    ) {
         try {
-            System.out.println(new Gson().toJson(taskToUpdate));
-            System.out.println("id: " + todoId);
-
             taskToUpdate.setId(todoId);
             yatlService.changeTodo(taskToUpdate, todoId);
             return ResponseEntity.ok().build();
