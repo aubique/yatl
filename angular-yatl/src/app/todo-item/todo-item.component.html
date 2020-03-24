@@ -2,23 +2,23 @@
 
   <mat-checkbox
     (change)="onCompleteToggle()"
-    [(ngModel)]="todoItem.completed"
-    [name]="todoItem.title"
+    [(ngModel)]="taskItem.complete"
+    [name]="taskItem.title"
     class="mat-checkbox"
     color="primary"
     fxFlex
   >
 
-    <span [class.completed]="todoItem.completed">
-      {{todoItem.title}}
-      <small>[id:{{todoItem.todoItem.id}},priority:{{todoItem.todoItem.priority}}]</small>
+    <span [class.complete]="taskItem.complete">
+      {{taskItem.title}}
+      <small>[id:{{taskItem.taskCore.id}},priority:{{taskItem.taskCore.priority}}]</small>
     </span>
 
   </mat-checkbox>
 
   <button
     (click)="onClickEdit()"
-    [disabled]="todoItem.completed"
+    [disabled]="taskItem.complete"
     aria-label="Edit task"
     class="mat-elevation-z1"
     color="accent"
@@ -29,7 +29,7 @@
 
   <button
     (click)="onClickDelete()"
-    arial-label="Delete task"
+    aria-label="Delete task"
     class="mat-elevation-z1"
     color="warn"
     mat-mini-fab

@@ -1,17 +1,19 @@
-<form (ngSubmit)="saveDialog()" [formGroup]="form">
+<form (ngSubmit)="onSave()" [formGroup]="form">
 
   <mat-toolbar color="primary">
     <div *ngIf="idItem; else newItem">
       {{titleItem}}<span class="faded">&nbsp;(id:{{idItem}})</span>
     </div>
-    <ng-template #newItem><span>New task</span></ng-template>
+    <ng-template #newItem><span>New taskItem</span></ng-template>
 
   </mat-toolbar>
   <mat-form-field appearance="fill">
     <mat-label>Title</mat-label>
-    <input formControlName="title"
-           matInput
-           placeholder="Name your task">
+    <label>
+      <input matInput
+             formControlName="title"
+             placeholder="Name your todo">
+    </label>
 
     <mat-hint *ngIf="form.get('title').invalid && form.get('title').touched">
       <span *ngIf="form.get('title').errors?.required">Field cannot be empty</span>
@@ -20,6 +22,6 @@
 
   </mat-form-field>
 
-  <!--      <button mat-raised-button>Close</button>-->
+  <button mat-raised-button type="button" (click)="onClose()">Close</button>
   <button mat-raised-button type="submit">Save</button>
 </form>

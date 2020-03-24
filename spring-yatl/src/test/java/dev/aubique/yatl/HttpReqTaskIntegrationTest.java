@@ -27,7 +27,7 @@ public class HttpReqTaskIntegrationTest {
     private static final Long USER_ID = 1L;
     private static final Long TASK_ID = 4L;
     private static final String TASK_TITLE = "task-item-" + TASK_ID;
-    private static final String TASK_DESC = TASK_ID + "th task item";
+    //  private static final String TASK_DESC = TASK_ID + "th task item";
     private static final Boolean TASK_UNDONE = false;
 
     @Autowired
@@ -45,7 +45,6 @@ public class HttpReqTaskIntegrationTest {
     private static TaskCore newTaskCore() {
         return TaskCore.builder()
                 .id(null)
-                .complete(TASK_UNDONE)
                 .priority(TASK_ID.intValue())
                 .build();
     }
@@ -55,7 +54,7 @@ public class HttpReqTaskIntegrationTest {
                 .id(null)
                 .taskCore(newTaskCore())
                 .title(TASK_TITLE)
-                .description(TASK_DESC)
+                .complete(TASK_UNDONE)
                 .user(owner)
                 .build();
     }
@@ -76,7 +75,7 @@ public class HttpReqTaskIntegrationTest {
                 .andExpect(status().isCreated());
 
         Task addedTask = taskRepository.findByTitle(TASK_TITLE);
-        assertThat(addedTask.getDescription()).isEqualTo(TASK_DESC);
+        assertThat(addedTask.getTaskCore().getPriority()).isEqualTo(TASK_ID.intValue());
     }
 
     @Test
@@ -92,6 +91,6 @@ public class HttpReqTaskIntegrationTest {
                 .andExpect(status().isOk());
 
         Task modifiedTask = taskRepository.findByTitle(testTask.getTitle());
-        assertThat(modifiedTask.getDescription()).isEqualTo(testTask.getDescription());
+        assertThat(modifiedTask.getTaskCore().getPriority()).isEqualTo(testTask.getTaskCore().getPriority());
     }
 }

@@ -9,8 +9,8 @@
     </thead>
     <tbody>
         <tr valign="top">
-            <td><img src="./screenshots/1.jpg"></a></td>
-            <td><img src="./screenshots/2.jpg"></a></td>
+            <td><img src="./angular-yatl/misc/1.jpg"></a></td>
+            <td><img src="./angular-yatl/misc/2.jpg"></a></td>
         </tr>
     </tbody>
 </table>
