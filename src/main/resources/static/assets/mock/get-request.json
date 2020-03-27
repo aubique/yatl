@@ -1,0 +1,18 @@
+[
+  {
+    "taskCore": {
+      "id": 1,
+      "priority": 1
+    },
+    "title": "todo-item-one",
+    "complete": false
+  },
+  {
+    "taskCore": {
+      "id": 2,
+      "priority": 2
+    },
+    "title": "todo-item-two",
+    "complete": false
+  }
+]
