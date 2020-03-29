@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {TaskFull} from '../model/task-full';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {TaskCore} from '../model/task-core';
+import { Injectable } from '@angular/core';
+import { TaskFull } from '../model/task-full';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { TaskCore } from '../model/task-core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiService {
 
@@ -14,8 +14,8 @@ export class ApiService {
   constructor(private http: HttpClient) {
     this.httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
+        'Content-Type': 'application/json',
+      }),
     };
   }
 
@@ -42,22 +42,22 @@ export class ApiService {
 
   public doPutRequest(itemToSend: TaskFull): Observable<any> {
     return this.http
-      .put<TaskFull>(ApiService.getTodoIdUrl(itemToSend), itemToSend, this.httpOptions);
+      .put<void>(ApiService.getTodoIdUrl(itemToSend), itemToSend, this.httpOptions);
   }
 
   public doDeleteRequest(itemToDelete: TaskFull): Observable<any> {
     return this.http
-      .delete(ApiService.getTodoIdUrl(itemToDelete));
+      .delete<void>(ApiService.getTodoIdUrl(itemToDelete));
   }
 
   public doPatchCoreList(taskCoreList: Array<TaskCore>): Observable<any> {
     return this.http
-      .patch(ApiService.getUserIdUrl(), taskCoreList, this.httpOptions);
+      .patch<void>(ApiService.getUserIdUrl(), taskCoreList, this.httpOptions);
   }
 
   public doPatchTodoPriority(taskToSend: TaskFull): Observable<any> {
     const taskPriorityDto = {complete: taskToSend.complete};
     return this.http
-      .patch(ApiService.getTodoIdUrl(taskToSend), taskPriorityDto, this.httpOptions);
+      .patch<void>(ApiService.getTodoIdUrl(taskToSend), taskPriorityDto, this.httpOptions);
   }
 }

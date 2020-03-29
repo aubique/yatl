@@ -1,16 +1,20 @@
-import {Component, OnInit} from '@angular/core';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-import {TaskFull} from '../model/task-full';
-import {FacadeService} from '../services/facade.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { TaskFull } from '../model/task-full';
+import { FacadeService } from '../services/facade.service';
+import { Subscription } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
-  styleUrls: ['./todo-list.component.scss']
+  styleUrls: ['./todo-list.component.scss'],
 })
-export class TodoListComponent implements OnInit {
+export class TodoListComponent implements OnInit, OnDestroy {
 
   items: Array<TaskFull>;
+  errors: HttpErrorResponse;
+  private sub: Subscription;
 
   constructor(public facade: FacadeService) {
   }
@@ -18,13 +22,19 @@ export class TodoListComponent implements OnInit {
   ngOnInit(): void {
     this.facade.retrieveItems();
     this.items = this.facade.getItemList();
+    this.sub = this.facade.getErrorSubject()
+      .subscribe((err) => this.errors = err);
   }
 
-  onDropInside(event: CdkDragDrop<TaskFull[]>) {
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
+
+  onDropInside(event: CdkDragDrop<TaskFull[]>): void {
     moveItemInArray(
       event.container.data,
       event.previousIndex,
-      event.currentIndex
+      event.currentIndex,
     );
     this.facade.updatePriority();
   }

@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {DialogService} from '../services/dialog.service';
-import {FacadeService} from '../services/facade.service';
+import { Component, OnInit } from '@angular/core';
+import { DialogService } from '../services/dialog.service';
+import { FacadeService } from '../services/facade.service';
 
 @Component({
   // providers: [DialogService],
