@@ -1,7 +1,7 @@
-import {Component, Input} from '@angular/core';
-import {TaskFull} from '../model/task-full';
-import {DialogService} from '../services/dialog.service';
-import {FacadeService} from '../services/facade.service';
+import { Component, Input } from '@angular/core';
+import { TaskFull } from '../model/task-full';
+import { DialogService } from '../services/dialog.service';
+import { FacadeService } from '../services/facade.service';
 
 @Component({
   // providers: [DialogService],

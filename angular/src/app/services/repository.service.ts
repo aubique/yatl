@@ -1,9 +1,10 @@
-import {Injectable, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
-import {TaskFull} from '../model/task-full';
+import { Injectable, OnInit } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { TaskFull } from '../model/task-full';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RepositoryService implements OnInit {
 
@@ -11,6 +12,7 @@ export class RepositoryService implements OnInit {
   public itemList: Array<TaskFull> = [];
   public ongoing: number;
   public completed: number;
+  public $errorMsg = new Subject<HttpErrorResponse>();
 
   constructor() {
   }

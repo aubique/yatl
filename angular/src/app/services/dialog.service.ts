@@ -1,9 +1,9 @@
-import {Injectable, OnInit} from '@angular/core';
-import {TodoDialogComponent} from '../todo-dialog/todo-dialog.component';
-import {TaskFull} from '../model/task-full';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {TaskFactory} from './task-factory';
-import {FacadeService} from './facade.service';
+import { Injectable, OnInit } from '@angular/core';
+import { TodoDialogComponent } from '../todo-dialog/todo-dialog.component';
+import { TaskFull } from '../model/task-full';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { TaskFactory } from './task-factory';
+import { FacadeService } from './facade.service';
 
 @Injectable()
 export class DialogService implements OnInit {
@@ -31,12 +31,12 @@ export class DialogService implements OnInit {
 
   private openDialog(
     task: TaskFull,
-    cbHttpRequest: (item: TaskFull) => void
+    cbHttpRequest: (item: TaskFull) => void,
   ): void {
     let dialogRef: MatDialogRef<TodoDialogComponent>;
     dialogRef = this.matDialog.open(
       TodoDialogComponent,
-      {data: task}
+      {data: task},
     );
     dialogRef.afterClosed().subscribe((submitData) => {
       task.title = submitData.title;

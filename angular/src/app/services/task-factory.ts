@@ -1,13 +1,13 @@
-import {TaskFull} from '../model/task-full';
-import {User} from '../model/user';
-import {TaskCore} from '../model/task-core';
+import { TaskFull } from '../model/task-full';
+import { User } from '../model/user';
+import { TaskCore } from '../model/task-core';
 
 export class TaskFactory {
 
   createTodo(listSize: number): TaskFull {
     const mockTaskCore = {
       id: 0,
-      priority: listSize + 1
+      priority: listSize + 1,
     } as TaskCore;
     return {
       taskCore: mockTaskCore,
@@ -19,7 +19,7 @@ export class TaskFactory {
   private mockDemoUser(): User {
     return {
       id: 1,
-      username: 'demo'
+      username: 'demo',
     } as User;
   }
 }
