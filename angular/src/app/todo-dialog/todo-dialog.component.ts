@@ -36,7 +36,6 @@ export class TodoDialogComponent {
   }
 
   onClose(): void {
-    //TODO: that needs to be debugged
-    this.dialogRef.close();
+    this.dialogRef.close(null);
   }
 }
