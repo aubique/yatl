@@ -1,0 +1,18 @@
+[
+  {
+    "todoItem": {
+      "id": 1,
+      "priority": 1
+    },
+    "completed": false,
+    "title": "todo-item-one"
+  },
+  {
+    "todoItem": {
+      "id": 2,
+      "priority": 2
+    },
+    "completed": false,
+    "title": "todo-item-two"
+  }
+]
