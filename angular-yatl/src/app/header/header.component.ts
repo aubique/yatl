@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {DataService} from '../services/data.service';
 
 @Component({
@@ -6,12 +6,8 @@ import {DataService} from '../services/data.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
   constructor(public storage: DataService) {
   }
-
-  ngOnInit(): void {
-  }
-
 }

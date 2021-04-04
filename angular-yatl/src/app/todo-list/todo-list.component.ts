@@ -15,7 +15,7 @@ export class TodoListComponent implements OnInit {
 
   constructor(
     public storage: DataService,
-    private api: ApiService
+    private api: ApiService,
   ) {
   }
 
