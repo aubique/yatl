@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {DataService} from '../services/data.service';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {TodoDetails} from '../shared/todo-details';
-import {ApiService} from '../services/api.service';
+import {FacadeService} from '../services/facade.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -13,23 +12,21 @@ export class TodoListComponent implements OnInit {
 
   items: Array<TodoDetails>;
 
-  constructor(
-    public storage: DataService,
-    private api: ApiService,
-  ) {
+  constructor(public facade: FacadeService) {
   }
 
   ngOnInit(): void {
-    this.api.loadData();
-    this.items = this.storage.itemList;
+    this.facade.retrieveItems();
+    this.items = this.facade.getItemList();
   }
 
   onDropInside(event: CdkDragDrop<any>) {
+    console.log('onDropInside');
     moveItemInArray(
       event.container.data,
       event.previousIndex,
       event.currentIndex
     );
-    this.storage.rearrangePriority();
+    this.facade.updatePriority();
   }
 }

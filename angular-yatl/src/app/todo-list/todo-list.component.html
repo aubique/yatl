@@ -1,14 +1,13 @@
 <div class="list-container">
-  <mat-list #todoList="cdkDropList"
+  <mat-list cdkDropList
+            *ngIf="items.length > 0; else noItems"
             (cdkDropListDropped)="onDropInside($event)"
-            [cdkDropListData]="items"
-            cdkDropList
-  >
+            [cdkDropListData]="items">
 
     <!--Task draggable wrapper-->
-    <mat-list-item class="drop-item-wrapper"
+    <mat-list-item cdkDrag
                    *ngFor="let item of items"
-                   cdkDrag>
+                   class="drop-item-wrapper">
 
       <mat-card fxFlex>
         <!--Task content component-->
@@ -18,4 +17,5 @@
     </mat-list-item>
 
   </mat-list>
+  <ng-template #noItems><p>You've completed all tasks</p></ng-template>
 </div>

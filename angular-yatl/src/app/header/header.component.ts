@@ -1,13 +1,25 @@
-import {Component} from '@angular/core';
-import {DataService} from '../services/data.service';
+import {Component, OnInit} from '@angular/core';
+import {DialogService} from '../services/dialog.service';
+import {FacadeService} from '../services/facade.service';
 
 @Component({
+  // providers: [DialogService],
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
-  constructor(public storage: DataService) {
+  constructor(
+    private dialogService: DialogService,
+    public facade: FacadeService,
+  ) {
+  }
+
+  ngOnInit(): void {
+  }
+
+  onClickAdd(): void {
+    this.dialogService.createItemDialog();
   }
 }
