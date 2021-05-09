@@ -11,19 +11,19 @@ import java.util.List;
  */
 @Data
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User {
 
+    @Expose
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Expose
     private Long id;
 
-    @Column(name = "username", length = 32)
     @Expose
+    @Column(name = "username", length = 32)
     private String username;
 
     //@ToString.Exclude
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Todo> todoList;
+    private List<Task> taskList;
 }
