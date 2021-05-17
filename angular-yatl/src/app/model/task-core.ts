@@ -1,4 +1,4 @@
-export interface TodoItem {
+export interface TaskCore {
 
   id: number;
   priority: number;

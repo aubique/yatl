@@ -11,11 +11,11 @@
 
       <mat-card fxFlex>
         <!--Task content component-->
-        <app-task-item [todoItem]="item" fxFlexFill></app-task-item>
+        <app-todo-item [taskItem]="item" fxFlexFill></app-todo-item>
       </mat-card>
 
     </mat-list-item>
 
   </mat-list>
-  <ng-template #noItems><p>You've completed all tasks</p></ng-template>
+  <ng-template #noItems><p>You've complete all tasks</p></ng-template>
 </div>

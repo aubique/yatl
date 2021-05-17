@@ -55,6 +55,8 @@ public class YatlServiceImpl implements YatlService {
         final User existingUser = userRepo.findById(userId)
                 .orElseThrow(BadResourceException::new);
         taskToSave.setUser(existingUser);
+        // Hot-fix
+        taskToSave.getTaskCore().setId(null);
 
         // Build an example to look for existing item
         // Throw 409 (conflict) if there collisions with the

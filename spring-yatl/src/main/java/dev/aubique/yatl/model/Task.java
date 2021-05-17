@@ -33,8 +33,8 @@ public class Task {
     private String title;
 
     @Expose
-    @Column(name = "description", length = 255)
-    private String description;
+    @Column(name = "complete", nullable = false)
+    private Boolean complete;
 
     @ToString.Exclude
     @ManyToOne

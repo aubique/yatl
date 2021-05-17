@@ -1,7 +1,7 @@
 import {Injectable, OnInit} from '@angular/core';
 import {RepositoryService} from "./repository.service";
 import {ApiService} from './api.service';
-import {TodoDetails} from '../shared/todo-details';
+import {TaskFull} from '../model/task-full';
 
 @Injectable({
   providedIn: 'root'
@@ -21,38 +21,44 @@ export class FacadeService implements OnInit {
     this.api.doGetRequest().subscribe(
       (fetchedList) => {
         this.storage.replaceList(fetchedList);
+        // Debug output
+        console.log('Debug: GET request');
         console.log(fetchedList);
       });
   }
 
-  public createItem(todoItemToCreate: TodoDetails): void {
-    this.api.doPostRequest(todoItemToCreate).subscribe(
+  public createItem(taskToCreate: TaskFull): void {
+    this.api.doPostRequest(taskToCreate).subscribe(
       (fetchedNewItem) => {
         this.storage.addItem(fetchedNewItem);
+        // Debut output
+        console.log('Debug: POST request');
+        console.log(fetchedNewItem);
       });
   }
 
-  public updateItem(todoItemToModify: TodoDetails): void {
-    this.api.doPutRequest(todoItemToModify);
+  public updateItem(taskToModify: TaskFull): void {
+    // TODO: do an update request to the server
+    this.api.doPutRequest(taskToModify);
   }
 
-  public deleteItem(todoItem: TodoDetails): void {
+  public deleteItem(todoItem: TaskFull): void {
     //TODO: do a delete request to delete that item
-    // this.api.doDeleteRequest(todoItem).subscribe();
+    // this.api.doDeleteRequest(taskCore).subscribe();
     this.storage.removeItem(todoItem);
   }
 
   public updatePriority(): void {
     this.storage.updatePriorityByIndex();
-    //TODO: do a patch request to update priority for every TodoCore{id, priority}
+    //TODO: call a patch request to update priority for every TodoCore{id, priority}
   }
 
-  public synchronizeComplete(todoItem: TodoDetails): void {
+  public synchronizeComplete(task: TaskFull): void {
     this.storage.countUndoneTasks();
-    //TODO: do a put request to update this TodoItem{TodoCore, title, complete}
+    //TODO: call a put request to update this TaskCore{TodoCore, title, complete}
   }
 
-  public getItemList(): Array<TodoDetails> {
+  public getItemList(): Array<TaskFull> {
     return this.storage.itemList;
   }
 

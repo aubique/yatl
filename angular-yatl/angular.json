@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "angular-yatl"
+    }
+  },
+  "defaultProject": "angular-yatl",
+  "cli": {
+    "analytics": "2f215056-f93e-40f8-82a2-0b787b3069b4"
+  }
 }

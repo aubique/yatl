@@ -1,8 +1,0 @@
-{
-  "todoItem": {
-    "id": 3,
-    "priority": 3
-  },
-  "completed": false,
-  "title": "todo-item-three"
-}
