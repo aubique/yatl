@@ -8,10 +8,21 @@ import {Observable} from 'rxjs';
 })
 export class ApiService {
 
-  private URL_USER_1: string;
+  private static readonly URL_BASE = 'http://localhost:8080/rest/';
+  private readonly URL_USER_1: string;
+  private readonly httpOptions: { headers: HttpHeaders };
 
   constructor(private http: HttpClient) {
-    this.URL_USER_1 = 'http://localhost:8080/rest/user/1';
+    this.URL_USER_1 = ApiService.URL_BASE + 'user/1';
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+  }
+
+  private static getTodoIdUrl(itemToIdentify): string {
+    return this.URL_BASE + 'todo/' + itemToIdentify.taskCore.id;
   }
 
   public doGetRequest(): Observable<Array<TaskFull>> {
@@ -21,19 +32,18 @@ export class ApiService {
   }
 
   public doPostRequest(itemToSend: TaskFull): Observable<TaskFull> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
-    //TODO: do a real POST request to create new item
     return this.http
-      .post<TaskFull>(this.URL_USER_1, itemToSend, httpOptions);
+      .post<TaskFull>(this.URL_USER_1, itemToSend, this.httpOptions);
     //.get<TaskFull>('/assets/mock/put-request.json');
   }
 
-  public doPutRequest(itemToSend: TaskFull): void {
-    //TODO: do a real PUT request to update that item
-    console.log('PUT request is mocked');
+  public doPutRequest(itemToSend: TaskFull): Observable<any> {
+    return this.http
+      .put<TaskFull>(ApiService.getTodoIdUrl(itemToSend), itemToSend, this.httpOptions);
+  }
+
+  public doDeleteRequest(itemToDelete: TaskFull): Observable<any> {
+    return this.http
+      .delete(ApiService.getTodoIdUrl(itemToDelete));
   }
 }
