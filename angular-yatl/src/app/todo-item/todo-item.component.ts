@@ -22,8 +22,6 @@ export class TodoItemComponent {
 
   onCompleteToggle(): void {
     this.facade.synchronizeComplete(this.taskItem);
-    console.log('OnCompleteToggle');
-    console.log(this.taskItem);
   }
 
   onClickEdit(): void {

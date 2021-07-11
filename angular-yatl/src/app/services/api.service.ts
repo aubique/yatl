@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {TaskFull} from '../model/task-full';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {TaskCore} from "../model/task-core";
 
 @Injectable({
   providedIn: 'root'
@@ -45,5 +46,16 @@ export class ApiService {
   public doDeleteRequest(itemToDelete: TaskFull): Observable<any> {
     return this.http
       .delete(ApiService.getTodoIdUrl(itemToDelete));
+  }
+
+  public doPatchCoreList(taskCoreList: Array<TaskCore>): Observable<any> {
+    return this.http
+      .patch(this.URL_USER_1, taskCoreList, this.httpOptions);
+  }
+
+  public doPatchTodoPriority(taskToSend: TaskFull): Observable<any> {
+    const taskPriorityDto = {complete: taskToSend.complete};
+    return this.http
+      .patch(ApiService.getTodoIdUrl(taskToSend), taskPriorityDto, this.httpOptions);
   }
 }

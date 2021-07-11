@@ -1,4 +1,4 @@
-<div class="item-container" fxLayout="row" fxLayoutAlign="begin center">
+<div class="item-container" fxLayout="row wrap" fxLayoutAlign="start center">
 
   <mat-checkbox
     (change)="onCompleteToggle()"
@@ -9,32 +9,34 @@
     fxFlex
   >
 
-    <span [class.complete]="taskItem.complete">
+    <span [class.done]="taskItem.complete">
       {{taskItem.title}}
       <small>[id:{{taskItem.taskCore.id}},priority:{{taskItem.taskCore.priority}}]</small>
     </span>
 
   </mat-checkbox>
 
-  <button
-    (click)="onClickEdit()"
-    [disabled]="taskItem.complete"
-    aria-label="Edit task"
-    class="mat-elevation-z1"
-    color="accent"
-    mat-mini-fab
-  >
-    <mat-icon>edit</mat-icon>
-  </button>
+  <div fxLayout="row" fxLayoutGap="1em">
+    <button
+      (click)="onClickEdit()"
+      [disabled]="taskItem.complete"
+      aria-label="Edit task"
+      class="mat-elevation-z1"
+      color="accent"
+      mat-mini-fab
+    >
+      <mat-icon>edit</mat-icon>
+    </button>
 
-  <button
-    (click)="onClickDelete()"
-    aria-label="Delete task"
-    class="mat-elevation-z1"
-    color="warn"
-    mat-mini-fab
-  >
-    <mat-icon>close</mat-icon>
-  </button>
+    <button
+      (click)="onClickDelete()"
+      aria-label="Delete task"
+      class="mat-elevation-z1"
+      color="warn"
+      mat-mini-fab
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
 
 </div>

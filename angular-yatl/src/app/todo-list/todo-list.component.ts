@@ -21,7 +21,6 @@ export class TodoListComponent implements OnInit {
   }
 
   onDropInside(event: CdkDragDrop<TaskFull[]>) {
-    console.log('onDropInside');
     moveItemInArray(
       event.container.data,
       event.previousIndex,
