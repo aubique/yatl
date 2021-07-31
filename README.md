@@ -1,27 +1,20 @@
 # Yet Another Todo List
-Todo List app consisting Angular and Spring Boot
+Todo List app consisting Angular and Spring Boot.
 
-<table>
-    <thead>
-        <tr>
-            <th colspan="2">Screenshots</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr valign="top">
-            <td><img src="./angular-yatl/misc/scr1.jpg"></a></td>
-            <td><img src="./angular-yatl/misc/scr2.jpg"></a></td>
-        </tr>
-    </tbody>
-</table>
+Check out the [Live Version](https://yatl.herokuapp.com/) hosted on Heroku.
 
-## Technologies
+## Screenshots
+| List with Drag&Drop items | Menu to create/edit a Todo |
+|--------------------------------------------|--------------------------------------------|
+| ![alt text](.misc/screenshot_1.jpg "Screenshot #1") | ![alt text](.misc/screenshot_2.jpg "Screenshot #2") |
 
-### Front End
+## Tech Stack
+**Front-End:**
 - Angular 9
 - Angular Material UI
 - Angular Flex-Layout
-### Back End
+
+**Back-End:**
 - Spring Boot 2.2
 - Spring Data JPA
 - Maven
