@@ -1,4 +1,4 @@
-<div class="list-container">
+<div>
   <mat-list (cdkDropListDropped)="onDropInside($event)"
             *ngIf="items.length > 0; else noItems"
             [cdkDropListData]="items"
@@ -17,5 +17,19 @@
     </mat-list-item>
 
   </mat-list>
-  <ng-template #noItems><p>You've complete all tasks</p></ng-template>
+
+  <ng-template #noItems>
+
+    <div class="no-items-container">
+      <ng-template [ngIf]="errors">
+        <p>Failed to fetch data from the server</p>
+        <p>{{errors.statusText}} error has occurred</p>
+      </ng-template>
+      <ng-template [ngIf]="!errors">
+        <p>You've completed all the tasks</p>
+      </ng-template>
+    </div>
+
+  </ng-template>
+
 </div>

@@ -1,11 +1,10 @@
-.list-container {
-  //min-width: 100%;
-  //border: 1px solid blue;
+.drop-item-wrapper {
+  margin: 2em 0;
+  cursor: pointer;
 }
 
-.drop-item-wrapper {
-  margin: 2rem 0;
-  cursor: pointer;
+.no-items-container {
+  margin: 2em 1em;
 }
 
 ::ng-deep .mat-list-item-content {

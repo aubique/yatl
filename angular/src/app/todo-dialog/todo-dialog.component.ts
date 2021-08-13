@@ -1,7 +1,7 @@
-import {Component, Inject} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {TaskFull} from '../model/task-full';
+import { Component, Inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { TaskFull } from '../model/task-full';
 
 @Component({
   selector: 'app-todo-dialog',
@@ -17,7 +17,7 @@ export class TodoDialogComponent {
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<TodoDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) taskItem: TaskFull
+    @Inject(MAT_DIALOG_DATA) taskItem: TaskFull,
   ) {
     this.idItem = taskItem.taskCore.id;
     this.titleItem = taskItem.title;
@@ -26,7 +26,7 @@ export class TodoDialogComponent {
     this.form = fb.group({
       'title': [taskItem.title, [
         Validators.required,
-        Validators.pattern('^[a-zA-Z0-9 _-]+$')
+        Validators.pattern('^[a-zA-Z0-9 _-]+$'),
       ]],
     });
   }
