@@ -39,8 +39,10 @@ export class DialogService implements OnInit {
       {data: task},
     );
     dialogRef.afterClosed().subscribe((submitData) => {
-      task.title = submitData.title;
-      cbHttpRequest(task);
+      if (submitData) {
+        task.title = submitData.title;
+        cbHttpRequest(task);
+      }
     });
   }
 }

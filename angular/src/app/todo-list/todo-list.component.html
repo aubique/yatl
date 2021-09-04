@@ -21,11 +21,12 @@
   <ng-template #noItems>
 
     <div class="no-items-container">
-      <ng-template [ngIf]="errors">
+      <div *ngIf="errors && errors.status!=404; else tasksCompleted">
+        <p>{{errors.status}}</p>
         <p>Failed to fetch data from the server</p>
         <p>{{errors.statusText}} error has occurred</p>
-      </ng-template>
-      <ng-template [ngIf]="!errors">
+      </div>
+      <ng-template #tasksCompleted>
         <p>You've completed all the tasks</p>
       </ng-template>
     </div>
