@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Extensions;
 
 namespace Exercise.Todos.Controllers
@@ -8,6 +10,8 @@ namespace Exercise.Todos.Controllers
     [ApiController]
     public class TodosController : ControllerBase
     {
+        private const char WHITESPACE_SEPARATOR = ' ';
+
         [HttpGet]
         public IActionResult GetList()
         {
@@ -30,39 +34,37 @@ namespace Exercise.Todos.Controllers
             return Ok(j);
         }
 
+        /// <summary>
+        /// Convert a string to title case
+        /// </summary>
         public static string ToTitleCase(string todo)
         {
-            var fs = todo.IndexOf(' ', 1);
+            if (string.IsNullOrEmpty(todo)) return todo;
 
-            if (todo[0] == ' ')
+            // Split a string to the list of strings based on whitespace character
+            var initialWords = todo.Split(WHITESPACE_SEPARATOR);
+            var resultWords = new List<string>();
+
+            // Fill the list with the capitalized words
+            foreach (var word in initialWords)
             {
-                if (todo.Length > 1)
-                {
-                    if (fs != -1)
-                    {
-                        return todo[0].ToString() + Char.ToUpper(todo[1]) + todo.Substring(2, fs - 2) + ToTitleCase(todo.Substring(fs));
-                    }
-                    else
-                    {
-                        return todo[0].ToString() + Char.ToUpper(todo[1]) + todo.Substring(2);
-                    }
-                }
-                else
-                {
-                    return todo.ToUpper();
-                }
+                resultWords.Add(Capitalize(word));
             }
-            else
-            {
-                if (fs == -1)
-                {
-                    return Char.ToUpper(todo[0]) + todo.Substring(1);
-                }
-                else
-                {
-                    return Char.ToUpper(todo[0]) + todo.Substring(1, fs - 1) + ToTitleCase(todo.Substring(fs));
-                }
-            }
+
+            return string.Join(WHITESPACE_SEPARATOR, resultWords);
+        }
+
+        /// <summary>
+        /// Capitalize the first letter of each string
+        /// </summary>
+        /// <param name="word">A word without spaces</param>
+        private static string Capitalize(string word)
+        {
+            var chars = word.ToLower().ToCharArray();
+
+            chars[0] = char.ToUpper(chars[0]);
+
+            return new string(chars);
         }
     }
 }
