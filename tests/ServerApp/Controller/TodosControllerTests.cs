@@ -1,7 +1,8 @@
 using Shouldly;
+using Todos.ServerApp.Controllers;
 using Xunit;
 
-namespace Exercise.Todos.Controllers.Tests
+namespace TodosTests.ServerApp.Controllers
 {
     public class TodosControllerTests
     {

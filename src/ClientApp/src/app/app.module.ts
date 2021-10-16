@@ -1,29 +1,27 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { TodoListComponent } from './todo-list/todo-list.component';
+import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
+import { AppRoutingModule } from './app-routing.module';
+import { TodoListModule } from './features/todo-list/todo-list.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent,
-    TodoListComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-    HttpClientModule,
-    FormsModule,
-    RouterModule.forRoot([
-      { path: 'todo-list', component: TodoListComponent },
-      { path: '**', redirectTo: 'todo-list' },
-    ])
+    // Angular
+    BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
+    // Routes & Main Modules & Service App Modules
+    AppRoutingModule,
+    TodoListModule, //includes TodoListComponent
+    CoreModule, //includes NavMenuComponent
+    SharedModule, //with all imports/exports
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {
+}

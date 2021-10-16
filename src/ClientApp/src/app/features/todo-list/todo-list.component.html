@@ -1,0 +1,9 @@
+<h1 id="tableLabel">Todo List</h1>
+
+<p *ngIf="!todos"><em>Loading...</em></p>
+
+<div *ngIf="todos" class="todo-list">
+  <div *ngFor="let todo of todos">
+    <input type="checkbox" [checked]="todo.isDone"/> {{ todo.text }}
+  </div>
+</div>

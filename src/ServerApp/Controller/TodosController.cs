@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Extensions;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Exercise.Todos.Controllers
+namespace Todos.ServerApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
