@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Todo } from '../../core/model/todo';
+import { Todo } from '../core/model/todo';
 
 @Component({
   selector: 'app-todo-list',
@@ -12,7 +12,6 @@ export class TodoListComponent {
 
   public todos: Todo[];
 
-  //FIXME: move state management to the services
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     http.get<any>(baseUrl + 'api/todos').subscribe(result => {
       this.todos = result;

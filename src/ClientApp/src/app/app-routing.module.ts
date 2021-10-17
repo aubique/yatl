@@ -9,7 +9,7 @@ const routes: Routes = [
   }, {
     path: 'todo',
     loadChildren: () =>
-      import('./features/todo-list/todo-list.module').then(m => m.TodoListModule),
+      import('./todo-list/todo-list.module').then(m => m.TodoListModule),
   }, {
     path: '**',
     redirectTo: '',

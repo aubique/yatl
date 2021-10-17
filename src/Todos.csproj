@@ -30,12 +30,15 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <Content Include="ClientApp\src\assets\mock\get-request.json" />
+    <Content Include="ClientApp\src\assets\mock\post-request.json" />
     <None Remove="$(SpaRoot)**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="ClientApp\src\app\core\components" />
+    <Folder Include="ClientApp\src\app\core\store" />
     <Folder Include="wwwroot" />
   </ItemGroup>
 

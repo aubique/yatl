@@ -1,0 +1,20 @@
+[
+  {
+    "taskCore": {
+      "id": 1,
+      "priority": 1
+    },
+    "title": "item-one",
+    "isComplete": false,
+    "notes": "text-one"
+  },
+  {
+    "taskCore": {
+      "id": 2,
+      "priority": 2
+    },
+    "title": "item-two",
+    "isComplete": false,
+    "notes": "text-two"
+  }
+]
