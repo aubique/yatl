@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { TodoListModule } from './todo-list/todo-list.module';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { reducers } from './core/store/reducers';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,8 @@ import { StoreModule } from '@ngrx/store';
     TodoListModule, //includes TodoListComponent
     CoreModule, //includes NavMenuComponent
     SharedModule, //with all imports/exports
+    StoreModule.forFeature('todo-feature', reducers),
+    EffectsModule.forFeature(),
   ],
   providers: [],
   bootstrap: [AppComponent],
