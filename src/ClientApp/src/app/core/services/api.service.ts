@@ -55,7 +55,7 @@ export class ApiService {
     return this.http.patch<void>(url, taskCoreList, this.httpOptions);
   }
 
-  public patchTaskPriority(task: TaskFull): Observable<any> {
+  public patchTaskComplete(task: TaskFull): Observable<any> {
     const url = `${ApiService.API_URL}/${task.taskCore.id}`;
     const taskPriorityDto = {isComplete: task.isComplete};
 
