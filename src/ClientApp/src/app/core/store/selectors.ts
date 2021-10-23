@@ -2,10 +2,10 @@ import { createSelector } from '@ngrx/store';
 import { getTodoFeatureState } from './reducers';
 import { taskFullAdapter } from './states';
 
-export const getTaskCoreState = createSelector(
-  getTodoFeatureState,
-  state => state.taskCore,
-);
+// export const getTaskCoreState = createSelector(
+//   getTodoFeatureState,
+//   state => state.taskCore,
+// );
 
 export const getTaskFullState = createSelector(
   getTodoFeatureState,

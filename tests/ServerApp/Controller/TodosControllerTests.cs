@@ -9,7 +9,7 @@ namespace TodosTests.ServerApp.Controllers
         [Fact]
         public void Should_TitleCase_WhenStringIsSingleCharacter()
         {
-            var singleCharacterString = TodosController.ToTitleCase("h");
+            var singleCharacterString = TaskController.ToTitleCase("h");
 
             singleCharacterString.ShouldBe("H");
         }

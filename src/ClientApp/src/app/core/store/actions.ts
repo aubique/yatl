@@ -1,6 +1,5 @@
 import { createAction, props } from '@ngrx/store';
 import { TaskFull } from '../models/task-full';
-import { TaskCore } from '../models/task-core';
 
 export const getTaskList = createAction(
   '[TodoFeature] LoadTasks',
@@ -27,10 +26,10 @@ export const updateComplete = createAction(
   props<{ id: number, isComplete: boolean }>(),
 );
 
-export const updateCoreList = createAction(
-  '[TodoFeature] UpdateCoreList',
-  props<{ taskCoreList: TaskCore[] }>(),
-);
+// export const updateCoreList = createAction(
+//   '[TodoFeature] UpdateCoreList',
+//   props<{ taskCoreList: TaskCore[] }>(),
+// );
 
 ///
 

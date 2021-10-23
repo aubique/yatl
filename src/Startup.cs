@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Todos.ServerApp.Service;
 
 namespace Todos
 {
@@ -22,6 +23,7 @@ namespace Todos
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
+            services.AddSingleton<ITaskService, TaskService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,12 +46,13 @@ namespace Todos
 
             app.UseRouting();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    "default",
-                    "{controller}/{action=Index}/{id?}");
-            });
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
+            // app.UseEndpoints(endpoints =>
+            // {
+            //     endpoints.MapControllerRoute(
+            //      "default",
+            //      "{controller}/{action=Index}/{id?}");
+            // });
 
             app.UseSpa(spa =>
             {

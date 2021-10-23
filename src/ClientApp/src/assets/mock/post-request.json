@@ -1,8 +1,5 @@
 {
-  "taskCore": {
-    "id": 3,
-    "priority": 3
-  },
+  "id": 3,
   "title": "item-three",
   "isComplete": false,
   "notes": "text-three"

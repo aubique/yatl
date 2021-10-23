@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { TaskCore } from '../models/task-core';
 import { TaskFull } from '../models/task-full';
 
 @Injectable({
@@ -9,7 +8,7 @@ import { TaskFull } from '../models/task-full';
 })
 export class ApiService {
 
-  private static readonly API_URL = 'api/todo';
+  private static readonly API_URL = '/api/todo';
   private readonly httpOptions: { headers: HttpHeaders };
 
   constructor(private http: HttpClient) {
@@ -24,8 +23,8 @@ export class ApiService {
     const url = ApiService.API_URL;
 
     return this.http
-      .get<Array<TaskFull>>('/assets/mock/get-request.json');
-    // .get<Array<TaskFull>>(url);
+      // .get<Array<TaskFull>>('/assets/mock/get-request.json');
+      .get<Array<TaskFull>>(url);
     // .pipe(map(tasks => tasks.slice(0, 6)));
   }
 
@@ -33,12 +32,13 @@ export class ApiService {
     const url = ApiService.API_URL;
 
     return this.http
-      // .post<TaskFull>(url, task, this.httpOptions);
-      .get<TaskFull>('/assets/mock/post-request.json');
+      .post<TaskFull>(url, task, this.httpOptions);
+    // .get<TaskFull>('/assets/mock/post-request.json');
   }
 
   public putTask(task: TaskFull): Observable<any> {
-    const url = `${ApiService.API_URL}/${task.taskCore.id}`;
+    // const url = `${ApiService.API_URL}/${task.taskCore.id}`;
+    const url = `${ApiService.API_URL}/${task.id}`;
 
     return this.http.put<void>(url, task, this.httpOptions);
   }
@@ -50,14 +50,15 @@ export class ApiService {
     return this.http.delete<void>(url);
   }
 
-  public patchTaskCoreList(taskCoreList: TaskCore[]): Observable<any> {
-    const url = ApiService.API_URL;
-
-    return this.http.patch<void>(url, taskCoreList, this.httpOptions);
-  }
+  // public patchTaskCoreList(taskCoreList: TaskCore[]): Observable<any> {
+  //   const url = ApiService.API_URL;
+  //
+  //   return this.http.patch<void>(url, taskCoreList, this.httpOptions);
+  // }
 
   public patchTaskComplete(task: TaskFull): Observable<any> {
-    const url = `${ApiService.API_URL}/${task.taskCore.id}`;
+    // const url = `${ApiService.API_URL}/${task.taskCore.id}`;
+    const url = `${ApiService.API_URL}/${task.id}`;
     const taskPriorityDto = {isComplete: task.isComplete};
 
     return this.http.patch<void>(url, taskPriorityDto, this.httpOptions);

@@ -1,15 +1,14 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { TaskFull } from '../models/task-full';
-import { TaskCore } from '../models/task-core';
 
 export interface TodoFeatureState {
-  taskCore: TaskCoreState;
+  // taskCore: TaskCoreState;
   taskFull: TaskFullState;
   status: StatusState;
 }
 
-export interface TaskCoreState extends EntityState<TaskCore> {
-}
+// export interface TaskCoreState extends EntityState<TaskCore> {
+// }
 
 export interface TaskFullState extends EntityState<TaskFull> {
   selectTaskId: number | string;
@@ -17,7 +16,8 @@ export interface TaskFullState extends EntityState<TaskFull> {
 
 
 export function selectTaskId(taskFull: TaskFull): number | string {
-  return taskFull.taskCore.id;
+  // return taskFull.taskCore.id;
+  return taskFull.id;
 }
 
 export const taskFullAdapter: EntityAdapter<TaskFull> = createEntityAdapter<TaskFull>({
@@ -42,6 +42,6 @@ export interface StatusState {
   ongoingUpdateComplete: boolean;
   errorUpdateComplete: string | null;
 
-  ongoingUpdateCoreList: boolean;
-  errorUpdateCoreList: string | null;
+  // ongoingUpdateCoreList: boolean;
+  // errorUpdateCoreList: string | null;
 }

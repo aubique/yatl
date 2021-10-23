@@ -31,11 +31,11 @@ export const taskFullReducer = createReducer(
   }),
 );
 
-export const taskCoreReducer = createReducer(null);
+// export const taskCoreReducer = createReducer(null);
 export const statusReducer = createReducer(null);
 
 export const reducers: ActionReducerMap<TodoFeatureState> = {
-  taskCore: taskCoreReducer,
+  // taskCore: taskCoreReducer,
   taskFull: taskFullReducer,
   status: statusReducer,
 };
