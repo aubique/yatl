@@ -12,15 +12,12 @@ namespace Todos.ServerApp.Controllers
         [HttpGet]
         public IActionResult GetList()
         {
-            string j = "[";
+            var j = "[";
 
-            string[] l = System.IO.File.ReadAllLines("Todos.txt");
-            for (int i = 0; i < l.Length; i++)
+            var l = System.IO.File.ReadAllLines("Todos.txt");
+            for (var i = 0; i < l.Length; i++)
             {
-                if (i > 0)
-                {
-                    j = j + ",";
-                }
+                if (i > 0) j = j + ",";
 
                 var s = l[i].Split(",");
                 j = j + "{\"i\": " + s[0] + ", \"text\": \"" + ToTitleCase(s[1]) + "\", \"isDone\": " + s[2] + "}";
@@ -32,7 +29,7 @@ namespace Todos.ServerApp.Controllers
         }
 
         /// <summary>
-        /// Convert a string to title case
+        ///     Convert a string to title case
         /// </summary>
         public static string ToTitleCase(string todo)
         {
@@ -43,16 +40,13 @@ namespace Todos.ServerApp.Controllers
             var resultWords = new List<string>();
 
             // Fill the list with the capitalized words
-            foreach (var word in initialWords)
-            {
-                resultWords.Add(Capitalize(word));
-            }
+            foreach (var word in initialWords) resultWords.Add(Capitalize(word));
 
             return string.Join(WHITESPACE_SEPARATOR, resultWords);
         }
 
         /// <summary>
-        /// Capitalize the first letter of each string
+        ///     Capitalize the first letter of each string
         /// </summary>
         /// <param name="word">A word without spaces</param>
         private static string Capitalize(string word)

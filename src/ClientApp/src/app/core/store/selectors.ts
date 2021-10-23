@@ -13,6 +13,11 @@ export const getTaskFullState = createSelector(
 );
 
 export const {
-  selectAll: getTaskFullList,
-  selectTotal: getCountAllTasks,
+  selectAll: selectAllTasks,
+  selectTotal: selectCountTotal,
 } = taskFullAdapter.getSelectors(getTaskFullState);
+
+export const getTaskFullList = createSelector(
+  selectAllTasks,
+  (tasks) => tasks,
+);

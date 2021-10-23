@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { TaskCore } from '../models/task-core';
 import { TaskFull } from '../models/task-full';
 
@@ -25,8 +24,9 @@ export class ApiService {
     const url = ApiService.API_URL;
 
     return this.http
-      // .get<Array<TaskFull>>('/assets/mock/get-request.json');
-      .get<Array<TaskFull>>(url).pipe(map(tasks => tasks.slice(0, 6)));
+      .get<Array<TaskFull>>('/assets/mock/get-request.json');
+    // .get<Array<TaskFull>>(url);
+    // .pipe(map(tasks => tasks.slice(0, 6)));
   }
 
   public postTask(task: TaskFull): Observable<TaskFull> {
@@ -43,8 +43,9 @@ export class ApiService {
     return this.http.put<void>(url, task, this.httpOptions);
   }
 
-  public deleteTask(task: TaskFull): Observable<any> {
-    const url = `${ApiService.API_URL}/${task.taskCore.id}`;
+  // public deleteTask(task: TaskFull): Observable<any> {
+  public deleteTask(taskId: number): Observable<any> {
+    const url = `${ApiService.API_URL}/${taskId}`;
 
     return this.http.delete<void>(url);
   }

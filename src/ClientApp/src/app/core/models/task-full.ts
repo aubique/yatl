@@ -1,4 +1,4 @@
-import { TaskCore } from './task';
+import { TaskCore } from './task-core';
 
 export interface TaskFull {
 

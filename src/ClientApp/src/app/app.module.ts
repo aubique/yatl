@@ -8,7 +8,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { TodoListModule } from './todo-list/todo-list.module';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { reducers } from './core/store/reducers';
 
 @NgModule({
   declarations: [
@@ -19,11 +18,11 @@ import { reducers } from './core/store/reducers';
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
     // Routes & Main Modules & Service App Modules
     AppRoutingModule,
-    TodoListModule, //includes TodoListComponent
-    CoreModule, //includes NavMenuComponent
-    SharedModule, //with all imports/exports
-    StoreModule.forFeature('todo-feature', reducers),
-    EffectsModule.forFeature(),
+    TodoListModule,
+    CoreModule,
+    SharedModule,
+    StoreModule.forRoot([]),
+    EffectsModule.forRoot([]),
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,6 +1,9 @@
-import { Component, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Todo } from '../core/model/todo';
+import { Component, OnInit } from '@angular/core';
+import { TaskFull } from '../core/models/task-full';
+import { Observable } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { TodoFeatureState } from '../core/store/states';
+import { getTaskFullList } from '../core/store/selectors';
 
 @Component({
   selector: 'app-todo-list',
@@ -8,13 +11,14 @@ import { Todo } from '../core/model/todo';
   styleUrls: ['./todo-list.component.scss'],
 
 })
-export class TodoListComponent {
+export class TodoListComponent implements OnInit {
 
-  public todos: Todo[];
+  taskList$: Observable<TaskFull[]>;
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<any>(baseUrl + 'api/todos').subscribe(result => {
-      this.todos = result;
-    }, error => console.error(error));
+  constructor(private store: Store<TodoFeatureState>) {
+    this.taskList$ = this.store.pipe(select(getTaskFullList));
+  }
+
+  ngOnInit(): void {
   }
 }
