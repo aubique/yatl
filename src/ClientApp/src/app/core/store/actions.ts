@@ -8,12 +8,12 @@ export const getTaskList = createAction(
 
 export const addTask = createAction(
   '[TodoFeature] AddTask',
-  props<{ taskFull: TaskFull }>(),
+  props<{ task: TaskFull }>(),
 );
 
 export const replaceTask = createAction(
   '[TodoFeature] ReplaceTask',
-  props<{ taskFull: TaskFull }>(),
+  props<{ task: TaskFull }>(),
 );
 
 export const deleteTask = createAction(
@@ -48,7 +48,7 @@ export const getTaskListFail = createAction(
 
 export const addTaskRequest = createAction(
   '[TodoFeature] AddTaskRequest',
-  props<{ taskFull: TaskFull }>(),
+  props<{ task: TaskFull }>(),
 );
 
 export const addTaskSuccess = createAction(
@@ -62,7 +62,7 @@ export const addTaskFail = createAction(
 
 export const replaceTaskRequest = createAction(
   '[TodoFeature] UpdateTaskRequest',
-  props<{ taskFull: TaskFull }>(),
+  props<{ task: TaskFull }>(),
 );
 
 export const replaceTaskSuccess = createAction(

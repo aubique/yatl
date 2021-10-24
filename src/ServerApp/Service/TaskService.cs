@@ -19,23 +19,25 @@ namespace Todos.ServerApp.Service
 
         public Task AddTask(Task taskItem)
         {
+            taskItem.Id = (_taskItems.Count);
+
             _taskItems.Add(taskItem);
             return taskItem;
         }
 
-        public Task UpdateTask(string id, Task taskItem)
+        public Task UpdateTask(int id, Task taskItem)
         {
             for (var index = _taskItems.Count - 1; index >= 0; index--)
-                if (_taskItems[index].ID == id)
+                if (_taskItems[index].Id == id)
                     _taskItems[index] = taskItem;
 
             return taskItem;
         }
 
-        public string DeleteTask(string id)
+        public int DeleteTask(int id)
         {
             for (var index = _taskItems.Count - 1; index >= 0; index--)
-                if (_taskItems[index].ID == id)
+                if (_taskItems[index].Id == id)
                     _taskItems.RemoveAt(index);
 
             return id;

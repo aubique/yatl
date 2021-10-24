@@ -24,6 +24,7 @@
     "@ngrx/effects": "^9.2.0",
     "@ngrx/entity": "^9.2.0",
     "@ngrx/store": "^9.2.0",
+    "@ngrx/store-devtools": "^9.2.0",
     "@nguniversal/module-map-ngfactory-loader": "8.1.1",
     "aspnet-prerendering": "^3.0.1",
     "bootstrap": "^4.3.1",

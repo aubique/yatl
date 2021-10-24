@@ -13,19 +13,15 @@ export const getTodoFeatureState = createFeatureSelector<TodoFeatureState>(
 export const initTaskFull: TaskFullState = taskFullAdapter.getInitialState({selectTaskId: null});
 export const taskFullReducer = createReducer(
   initTaskFull,
-// @ts-ignore
   on(Actions.getTaskList, (state, {taskList}) => {
     return taskFullAdapter.setAll(taskList, state);
   }),
-// @ts-ignore
   on(Actions.addTask, (state, {task}) => {
     return taskFullAdapter.addOne(task, state);
   }),
-// @ts-ignore
   on(Actions.replaceTask, (state, {task}) => {
     return taskFullAdapter.setOne(task, state);
   }),
-// @ts-ignore
   on(deleteTask, (state, {id}) => {
     return taskFullAdapter.removeOne(id, state);
   }),
@@ -36,6 +32,6 @@ export const statusReducer = createReducer(null);
 
 export const reducers: ActionReducerMap<TodoFeatureState> = {
   // taskCore: taskCoreReducer,
-  taskFull: taskFullReducer,
+  taskState: taskFullReducer,
   status: statusReducer,
 };

@@ -8,6 +8,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { TodoListModule } from './todo-list/todo-list.module';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { environment } from '../environments/environment';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { StoreModule } from '@ngrx/store';
     SharedModule,
     StoreModule.forRoot([]),
     EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({maxAge: 10}),
   ],
   providers: [],
   bootstrap: [AppComponent],

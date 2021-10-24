@@ -20,10 +20,13 @@
         class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
       >
         <ul class="navbar-nav flex-grow">
-          <li [routerLinkActive]="['link-active']" class="nav-item">
-            <a [routerLink]="['/todo-list']" class="nav-link text-dark">
-              List
-            </a>
+          <!--<li [routerLinkActive]="['link-active']" class="nav-item">-->
+          <!--  <a [routerLink]="['/todo-list']" class="nav-link text-dark">-->
+          <!--    List-->
+          <!--  </a>-->
+          <!--</li>-->
+          <li class="nav-item">
+            <button (click)="generateItem()">New Item</button>
           </li>
         </ul>
       </div>

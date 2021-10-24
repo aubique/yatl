@@ -9,8 +9,8 @@ namespace Todos.ServerApp.Service
 
         public Task AddTask(Task taskItem);
 
-        public Task UpdateTask(string id, Task taskItem);
+        public Task UpdateTask(int id, Task taskItem);
 
-        public string DeleteTask(string id);
+        public int DeleteTask(int id);
     }
 }

@@ -3,7 +3,7 @@ import { TaskFull } from '../models/task-full';
 
 export interface TodoFeatureState {
   // taskCore: TaskCoreState;
-  taskFull: TaskFullState;
+  taskState: TaskFullState;
   status: StatusState;
 }
 
@@ -11,17 +11,16 @@ export interface TodoFeatureState {
 // }
 
 export interface TaskFullState extends EntityState<TaskFull> {
-  selectTaskId: number | string;
+  selectTaskId: number;
 }
 
 
-export function selectTaskId(taskFull: TaskFull): number | string {
+export function selectTaskId(taskFull: TaskFull): number {
   // return taskFull.taskCore.id;
   return taskFull.id;
 }
 
 export const taskFullAdapter: EntityAdapter<TaskFull> = createEntityAdapter<TaskFull>({
-  // @ts-ignore
   selectId: selectTaskId,
 });
 

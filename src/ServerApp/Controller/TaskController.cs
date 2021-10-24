@@ -83,14 +83,14 @@ namespace Todos.ServerApp.Controllers
         }
 
         [HttpPut("/api/todo/{id}")]
-        public ActionResult<Task> UpdateTask(string id, Task task)
+        public ActionResult<Task> UpdateTask(int id, Task task)
         {
             _service.UpdateTask(id, task);
             return task;
         }
 
         [HttpDelete("/api/todo/{id}")]
-        public ActionResult<string> DeleteTask(string id)
+        public ActionResult<int> DeleteTask(int id)
         {
             _service.DeleteTask(id);
             //_logger.LogInformation("tasks", _tasks);

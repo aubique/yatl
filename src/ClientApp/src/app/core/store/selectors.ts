@@ -9,7 +9,7 @@ import { taskFullAdapter } from './states';
 
 export const getTaskFullState = createSelector(
   getTodoFeatureState,
-  state => state.taskFull,
+  state => state.taskState,
 );
 
 export const {

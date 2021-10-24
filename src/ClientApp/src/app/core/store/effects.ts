@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { TodoService } from '../services/todo.service';
+import { act, Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, mergeMap, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { ApiService } from '../services/api.service';
@@ -26,7 +25,7 @@ import {
 @Injectable()
 export class TaskEffects {
 
-  getTaskListRequest = createEffect(() => this.actions$.pipe(
+  getTaskListRequest$ = createEffect(() => this.actions$.pipe(
     ofType(getTaskListRequest),
     switchMap(() => {
       return this.apiService.getAllTasks()
@@ -43,11 +42,10 @@ export class TaskEffects {
   addTaskRequest$ = createEffect(() => this.actions$.pipe(
     ofType(addTaskRequest),
     switchMap((action) => {
-      const task = action.taskFull;
-      return this.apiService.postTask(task)
+      return this.apiService.postTask(action.task)
         .pipe(
-          mergeMap(() => [
-            addTask({taskFull: task}),
+          mergeMap((taskFromApi) => [
+            addTask({task: taskFromApi}),
             addTaskSuccess(),
           ]),
           catchError(error => of(addTaskFail({error}))),
@@ -58,11 +56,11 @@ export class TaskEffects {
   replaceTaskRequest$ = createEffect(() => this.actions$.pipe(
     ofType(replaceTaskRequest),
     switchMap((action) => {
-      const task = action.taskFull;
+      const task = action.task;
       return this.apiService.putTask(task)
         .pipe(
           mergeMap(() => [
-            replaceTask({taskFull: task}),
+            replaceTask({task: task}),
             replaceTaskSuccess(),
           ]),
           catchError(error => of(replaceTaskFail({error}))),
@@ -87,7 +85,6 @@ export class TaskEffects {
 
   constructor(
     private actions$: Actions,
-    private todoService: TodoService,
     private apiService: ApiService,
   ) {
   }

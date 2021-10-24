@@ -1,6 +1,6 @@
 export interface TaskFull {
 
-  id: number;
+  id?: number;
   // taskCore: TaskCore;
 
   title: string;
