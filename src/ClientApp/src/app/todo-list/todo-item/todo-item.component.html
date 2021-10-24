@@ -1,0 +1,18 @@
+<div>
+  <input
+    class="toggle"
+    type="checkbox"
+    [formControl]="checkBoxField"
+  />
+
+
+  <span [class.done]="_task.isComplete">
+
+    <small>[id:{{_task.id}}]</small>
+    {{_task.title}}
+    {{ _task.notes }}
+
+
+  </span>
+  <button class="destroy" (click)="onClickDelete()"></button>
+</div>

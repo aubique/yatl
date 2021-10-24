@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { TaskFull } from '../models/task-full';
+import { Update } from '@ngrx/entity';
 
 export const getTaskList = createAction(
   '[TodoFeature] LoadTasks',
@@ -21,9 +22,9 @@ export const deleteTask = createAction(
   props<{ id: number }>(),
 );
 
-export const updateComplete = createAction(
-  '[TodoFeature] UpdateComplete',
-  props<{ id: number, isComplete: boolean }>(),
+export const updateTask = createAction(
+  '[TodoFeature] UpdateTask',
+  props<{ update: Update<TaskFull> }>(),
 );
 
 // export const updateCoreList = createAction(
@@ -85,5 +86,19 @@ export const deleteTaskSuccess = createAction(
 
 export const deleteTaskFail = createAction(
   '[TodoFeature] DeleteTaskFail',
+  props<{ error: string }>(),
+);
+
+export const updateTaskRequest = createAction(
+  '[TodoFeature] UpdateTaskRequest',
+  props<{ update: Update<TaskFull> }>(),
+);
+
+export const updateTaskSuccess = createAction(
+  '[TodoFeature] UpdateTaskSuccess',
+);
+
+export const updateTaskFail = createAction(
+  '[TodoFeature] updateTaskFail',
   props<{ error: string }>(),
 );

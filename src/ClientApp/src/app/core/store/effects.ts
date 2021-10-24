@@ -19,7 +19,7 @@ import {
   replaceTask,
   replaceTaskFail,
   replaceTaskRequest,
-  replaceTaskSuccess,
+  replaceTaskSuccess, updateTask, updateTaskFail, updateTaskRequest, updateTaskSuccess,
 } from './actions';
 
 @Injectable()
@@ -79,6 +79,23 @@ export class TaskEffects {
             deleteTaskSuccess(),
           ]),
           catchError(error => of(deleteTaskFail({error}))),
+        );
+    }),
+  ));
+
+  updateTaskRequest$ = createEffect(() => this.actions$.pipe(
+    ofType(updateTaskRequest),
+    switchMap((action) => {
+      const update = action.update;
+
+      console.log('updateTaskRequest');
+      return this.apiService.patchPartialTask(update.id, update.changes)
+        .pipe(
+          mergeMap(() => [
+            updateTask({update}),
+            updateTaskSuccess(),
+          ]),
+          catchError(error => of(updateTaskFail({error}))),
         );
     }),
   ));

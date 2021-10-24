@@ -3,7 +3,12 @@
 <p *ngIf="!taskList$"><em>Loading...</em></p>
 
 <div *ngIf="taskList$ | async as tasks" class="todo-list">
-  <div *ngFor="let task of tasks">
-    <input [checked]="task.isComplete" type="checkbox"/> {{ task.notes }}
-  </div>
+
+  <app-todo-item
+    *ngFor="let task of tasks"
+    [taskItem]="task"
+    (doToggleComplete)="onCompleteToggle($event)"
+    (doDeleteItem)="onDeleteItem($event)"
+  ></app-todo-item>
+
 </div>

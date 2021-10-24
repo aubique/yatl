@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Todos.ServerApp.Model;
@@ -82,19 +83,29 @@ namespace Todos.ServerApp.Controllers
             return task;
         }
 
-        [HttpPut("/api/todo/{id}")]
-        public ActionResult<Task> UpdateTask(int id, Task task)
+        [HttpPut("/api/todo/{id:int}")]
+        public ActionResult<Task> ReplaceTask(int id, Task task)
         {
-            _service.UpdateTask(id, task);
+            _service.ReplaceTask(id, task);
             return task;
         }
 
-        [HttpDelete("/api/todo/{id}")]
+        [HttpDelete("/api/todo/{id:int}")]
         public ActionResult<int> DeleteTask(int id)
         {
             _service.DeleteTask(id);
-            //_logger.LogInformation("tasks", _tasks);
+            _logger.LogInformation("num of tasks: {}", _service.GetTask().Count);
             return id;
+        }
+
+        [HttpPatch("/api/todo/{id:int}")]
+        public EmptyResult UpdateComplete(int id, CompleteDto completeDto)
+        {
+            _logger.LogInformation("id: {}, isComplete: {}", id, completeDto.IsComplete);
+
+            _service.UpdateComplete(id, completeDto);
+
+            return new EmptyResult();
         }
     }
 }

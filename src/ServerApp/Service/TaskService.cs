@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
 using Todos.ServerApp.Model;
 
 namespace Todos.ServerApp.Service
@@ -25,7 +26,7 @@ namespace Todos.ServerApp.Service
             return taskItem;
         }
 
-        public Task UpdateTask(int id, Task taskItem)
+        public Task ReplaceTask(int id, Task taskItem)
         {
             for (var index = _taskItems.Count - 1; index >= 0; index--)
                 if (_taskItems[index].Id == id)
@@ -41,6 +42,14 @@ namespace Todos.ServerApp.Service
                     _taskItems.RemoveAt(index);
 
             return id;
+        }
+
+        public CompleteDto UpdateComplete(int id, CompleteDto completeDto)
+        {
+            var task = _taskItems.Find(task => task.Id.Equals(id));
+
+            task.IsComplete = completeDto.IsComplete;
+            return completeDto;
         }
     }
 }

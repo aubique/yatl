@@ -8,11 +8,13 @@ import { EffectsModule } from '@ngrx/effects';
 import { metaReducers, reducers } from '../core/store/reducers';
 import { TaskEffects } from '../core/store/effects';
 import { TodoListGuard } from './guards/todo-list.guard';
+import { TodoItemComponent } from './todo-item/todo-item.component';
 
 
 @NgModule({
   declarations: [
     TodoListComponent,
+    TodoItemComponent,
   ],
   imports: [
     CommonModule,

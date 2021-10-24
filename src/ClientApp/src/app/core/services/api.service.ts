@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TaskFull } from '../models/task-full';
+import { map } from 'rxjs/operators';
+import { Update } from '@ngrx/entity';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +11,7 @@ import { TaskFull } from '../models/task-full';
 export class ApiService {
 
   private static readonly API_URL = '/api/todo';
+  // private static readonly API_URL = 'https://cdf571af-c259-4ee4-a40d-329cde6f779c.mock.pstmn.io';
   private readonly httpOptions: { headers: HttpHeaders };
 
   constructor(private http: HttpClient) {
@@ -40,6 +43,8 @@ export class ApiService {
     // const url = `${ApiService.API_URL}/${task.taskCore.id}`;
     const url = `${ApiService.API_URL}/${task.id}`;
 
+    console.log('triggered puTask()');
+
     return this.http.put<void>(url, task, this.httpOptions);
   }
 
@@ -62,5 +67,12 @@ export class ApiService {
     const taskPriorityDto = {isComplete: task.isComplete};
 
     return this.http.patch<void>(url, taskPriorityDto, this.httpOptions);
+  }
+
+  public patchPartialTask(id: number | string, taskCompleteDto: Partial<TaskFull>): Observable<any> {
+    const url = `${ApiService.API_URL}/${id}`;
+    console.log(url);
+    console.log(taskCompleteDto);
+    return this.http.patch<void>(url, taskCompleteDto, this.httpOptions);
   }
 }
