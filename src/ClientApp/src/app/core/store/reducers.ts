@@ -6,10 +6,6 @@ import { environment } from '../../../environments/environment';
 
 export const metaReducers: MetaReducer<TodoFeatureState>[] = !environment.production ? [] : [];
 
-export const getTodoFeatureState = createFeatureSelector<TodoFeatureState>(
-  'todo-feature',
-);
-
 export const initTaskFull: TaskFullState = taskFullAdapter.getInitialState({selectTaskId: null});
 export const taskFullReducer = createReducer(
   initTaskFull,

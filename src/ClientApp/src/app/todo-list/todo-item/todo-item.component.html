@@ -2,17 +2,29 @@
   <input
     class="toggle"
     type="checkbox"
-    [formControl]="checkBoxField"
   />
 
+  <mat-checkbox
+    [formControl]="checkBoxField"
+    [name]="_task.title"
+    class="mat-checkbox"
+    color="primary"
+    fxFlex
+  >
+  </mat-checkbox>
 
-  <span [class.done]="_task.isComplete">
+  <mat-card fxFlex>
 
-    <small>[id:{{_task.id}}]</small>
-    {{_task.title}}
-    {{ _task.notes }}
+    <small>(id.{{ _task.id }}) </small>
+    <span fxFlex>{{ _task.title }}</span>
+    <!--<span>[{{ _task.priority }}]</span>-->
+    <button
+      mat-mini-fab
+      (click)="onClickDelete()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
 
+  </mat-card>
 
-  </span>
-  <button class="destroy" (click)="onClickDelete()"></button>
 </div>

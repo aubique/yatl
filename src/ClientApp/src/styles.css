@@ -1,6 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('~@angular/material/prebuilt-themes/indigo-pink.css');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 
-/* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
 }
@@ -17,4 +17,39 @@ code {
 
 .todo-list {
   list-style-type: none;
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+  background-color: #abc;
+}
+
+.rounded {
+  border-radius: 0.2em;
+}
+
+.faded {
+  /*color: $color-faded;*/
+}
+
+.center-screen-x {
+  position: fixed;
+  left: 50%;
+  //top: 50%;
+  text-align: center;
+  transform: translate(-50%, -50%);
 }

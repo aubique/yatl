@@ -1,11 +1,14 @@
-import { createSelector } from '@ngrx/store';
-import { getTodoFeatureState } from './reducers';
-import { taskFullAdapter } from './states';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { taskFullAdapter, TodoFeatureState } from './states';
 
 // export const getTaskCoreState = createSelector(
 //   getTodoFeatureState,
 //   state => state.taskCore,
 // );
+
+export const getTodoFeatureState = createFeatureSelector<TodoFeatureState>(
+  'todo-feature',
+);
 
 export const getTaskFullState = createSelector(
   getTodoFeatureState,
