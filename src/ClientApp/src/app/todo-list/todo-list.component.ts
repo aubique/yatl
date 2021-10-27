@@ -1,19 +1,10 @@
-import {
-  Component,
-  OnInit,
-  Output,
-  Input,
-  ViewChild,
-  EventEmitter,
-  ElementRef,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { TaskFull } from '../core/models/task-full';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { TodoFeatureState } from '../core/store/states';
 import { getTaskFullList } from '../core/store/selectors';
-import { deleteTask, deleteTaskRequest, updateTask, updateTaskRequest } from '../core/store/actions';
+import { deleteTaskRequest, updateTaskRequest } from '../core/store/actions';
 import { Update } from '@ngrx/entity';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { moveItemInArray } from '../shared/const/array-operations.func';

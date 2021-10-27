@@ -12,9 +12,9 @@
                    cdkDrag
                    class="drop-item-wrapper">
       <app-todo-item
-        [taskItem]="item"
-        (doToggleComplete)="onCompleteToggle($event)"
         (doDeleteItem)="onDeleteItem($event)"
+        (doToggleComplete)="onCompleteToggle($event)"
+        [taskItem]="item"
       ></app-todo-item>
     </mat-list-item>
 

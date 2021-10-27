@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { TaskFull } from '../../core/models/task-full';
 import { FormControl } from '@angular/forms';
 import { Update } from '@ngrx/entity';
-import { Task } from 'protractor/built/taskScheduler';
 
 @Component({
   selector: 'app-todo-item',
@@ -14,12 +13,6 @@ export class TodoItemComponent implements OnInit {
 
   _task: TaskFull;
   checkBoxField: FormControl;
-
-  @Input() set taskItem(task: TaskFull) {
-    this._task = task;
-    this.checkBoxField.setValue(this._task.isComplete, {emitEvent: false});
-  }
-
   @Output() doToggleComplete: EventEmitter<Update<TaskFull>> = new EventEmitter();
   @Output() doDeleteItem: EventEmitter<number> = new EventEmitter();
 
@@ -36,6 +29,11 @@ export class TodoItemComponent implements OnInit {
         };
         this.doToggleComplete.emit(update);
       });
+  }
+
+  @Input() set taskItem(task: TaskFull) {
+    this._task = task;
+    this.checkBoxField.setValue(this._task.isComplete, {emitEvent: false});
   }
 
   ngOnInit() {

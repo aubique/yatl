@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Todos.ServerApp.Model;
@@ -12,8 +11,8 @@ namespace Todos.ServerApp.Controllers
     public class TaskController : ControllerBase
     {
         private const char WHITESPACE_SEPARATOR = ' ';
-        private ILogger _logger;
         private readonly ITaskService _service;
+        private readonly ILogger _logger;
 
         public TaskController(ILogger<TaskController> logger, ITaskService service)
         {

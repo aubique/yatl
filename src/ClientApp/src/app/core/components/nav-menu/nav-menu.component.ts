@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TaskFull } from '../../models/task-full';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { TodoFeatureState } from '../../store/states';
 import { addTaskRequest } from '../../store/actions';
 import { selectCountTotal } from '../../store/selectors';
-import { first, take } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-nav-menu',
@@ -15,21 +15,10 @@ import { first, take } from 'rxjs/operators';
 })
 export class NavMenuComponent {
 
-  isExpanded = false;
-
   constructor(private _store: Store<TodoFeatureState>) {
   }
 
-  collapse() {
-    this.isExpanded = false;
-  }
-
-  toggle() {
-    this.isExpanded = !this.isExpanded;
-  }
-
   generateItem() {
-    // const count = await this._store.pipe(select(selectCountTotal), take(1)).toPromise;
     let last;
     this._store.select(selectCountTotal).pipe(take(1)).subscribe(c => last = c);
 

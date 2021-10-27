@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Microsoft.Extensions.Logging;
 using Todos.ServerApp.Model;
 
 namespace Todos.ServerApp.Service
@@ -20,7 +19,7 @@ namespace Todos.ServerApp.Service
 
         public Task AddTask(Task taskItem)
         {
-            taskItem.Id = (_taskItems.Count);
+            taskItem.Id = _taskItems.Count;
 
             _taskItems.Add(taskItem);
             return taskItem;

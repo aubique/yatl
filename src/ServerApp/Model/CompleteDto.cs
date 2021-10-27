@@ -1,5 +1,3 @@
-using System;
-
 namespace Todos.ServerApp.Model
 {
     public class CompleteDto

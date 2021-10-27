@@ -1,8 +1,4 @@
-<div>
-  <input
-    class="toggle"
-    type="checkbox"
-  />
+<div class="item-container" fxLayout="row wrap" fxLayoutAlign="start center">
 
   <mat-checkbox
     [formControl]="checkBoxField"
@@ -11,20 +7,34 @@
     color="primary"
     fxFlex
   >
+    <span [class.done]="_task.isComplete">
+      {{_task.title}}
+      <small>[id:{{_task.core.id}},priority:{{_task.core.priority}}]</small>
+    </span>
+
   </mat-checkbox>
 
-  <mat-card fxFlex>
-
-    <small>(id.{{ _task.id }}) </small>
-    <span fxFlex>{{ _task.title }}</span>
-    <!--<span>[{{ _task.priority }}]</span>-->
+  <div fxLayout="row" fxLayoutGap="1em">
     <button
+      (click)="onClickEdit()"
+      [disabled]="_task.isComplete"
+      aria-label="Edit task"
+      class="mat-elevation-z1"
+      color="accent"
       mat-mini-fab
+    >
+      <mat-icon>edit</mat-icon>
+    </button>
+
+    <button
       (click)="onClickDelete()"
+      aria-label="Delete task"
+      class="mat-elevation-z1"
+      color="warn"
+      mat-mini-fab
     >
       <mat-icon>close</mat-icon>
     </button>
-
-  </mat-card>
+  </div>
 
 </div>

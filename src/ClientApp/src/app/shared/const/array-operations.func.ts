@@ -1,6 +1,3 @@
-import { TaskFull } from '../../core/models/task-full';
-import { Task } from 'protractor/built/taskScheduler';
-
 // export const compareByPriorityFn = ((a: TaskFull, b: Task) => a.priority - b.priority);
 
 // export function updatePriorityByIndex(items: TaskFull[]): void {

@@ -1,35 +1,17 @@
-<header>
-  <nav
-    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
-  >
-    <div class="container">
-      <a [routerLink]="['/']" class="navbar-brand">Todos</a>
-      <button
-        (click)="toggle()"
-        [attr.aria-expanded]="isExpanded"
-        aria-label="Toggle navigation"
-        class="navbar-toggler"
-        data-target=".navbar-collapse"
-        data-toggle="collapse"
-        type="button"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div
-        [ngClass]="{ show: isExpanded }"
-        class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
-      >
-        <ul class="navbar-nav flex-grow">
-          <!--<li [routerLinkActive]="['link-active']" class="nav-item">-->
-          <!--  <a [routerLink]="['/todo-list']" class="nav-link text-dark">-->
-          <!--    List-->
-          <!--  </a>-->
-          <!--</li>-->
-          <li class="nav-item">
-            <button (click)="generateItem()">New Item</button>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-</header>
+<div class="header-container">
+  <mat-toolbar class="rounded" color="primary">
+
+    <!--<p fxFlex>-->
+    <!--Tasks-->
+    <!--<span class="faded">({{facade.getUndoneListSize()}})</span>-->
+    <!--</p>-->
+
+    <button (click)="generateItem()"
+            class="add-button"
+            mat-fab>
+      <mat-icon>add</mat-icon>
+    </button>
+
+  </mat-toolbar>
+</div>
+

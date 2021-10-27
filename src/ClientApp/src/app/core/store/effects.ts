@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { act, Actions, createEffect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, mergeMap, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { ApiService } from '../services/api.service';
@@ -19,7 +19,11 @@ import {
   replaceTask,
   replaceTaskFail,
   replaceTaskRequest,
-  replaceTaskSuccess, updateTask, updateTaskFail, updateTaskRequest, updateTaskSuccess,
+  replaceTaskSuccess,
+  updateTask,
+  updateTaskFail,
+  updateTaskRequest,
+  updateTaskSuccess,
 } from './actions';
 
 @Injectable()

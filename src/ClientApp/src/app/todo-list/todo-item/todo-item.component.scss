@@ -1,0 +1,11 @@
+@import 'src/assets/styles/vars';
+
+.item-container {
+  //min-width: 100%;
+  //border: 2px solid red;
+}
+
+.done {
+  color: $color-faded;
+  text-decoration: line-through;
+}

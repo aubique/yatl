@@ -1,3 +1,12 @@
-body {
-  margin: 10px;
+.drop-item-wrapper {
+  margin: 2em 0;
+  cursor: pointer;
+}
+
+.no-items-container {
+  margin: 2em 1em;
+}
+
+::ng-deep .mat-list-item-content {
+  //padding: 0 !important;
 }
