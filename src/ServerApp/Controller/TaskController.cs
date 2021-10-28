@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Todos.ServerApp.Model;
@@ -103,6 +104,18 @@ namespace Todos.ServerApp.Controllers
             _logger.LogInformation("id: {}, isComplete: {}", id, completeDto.IsComplete);
 
             _service.UpdateComplete(id, completeDto);
+
+            return new EmptyResult();
+        }
+
+        [HttpPatch("/api/todo")]
+        public EmptyResult UpdateCoreList(Core[] coreList)
+        {
+            _logger.LogInformation("========\nnum of core tasks: {}", coreList.Length);
+            Array.ForEach(coreList, c =>
+                _logger.LogInformation("coreId: {}, coreOrder: {}", c.Id, c.Order));
+
+            _service.UpdateCoreList(coreList);
 
             return new EmptyResult();
         }

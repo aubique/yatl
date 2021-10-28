@@ -8,6 +8,7 @@ import { deleteTaskRequest, updateCoreOrderRequest, updateTaskRequest } from '..
 import { Update } from '@ngrx/entity';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { moveItemInArray } from '../shared/const/array-operations.func';
+import { TodoService } from '../core/services/todo.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -20,7 +21,10 @@ export class TodoListComponent implements OnInit {
 
   taskList$: Observable<TaskFull[]>;
 
-  constructor(private _store: Store<TodoFeatureState>) {
+  constructor(
+    private _store: Store<TodoFeatureState>,
+    private _service: TodoService,
+  ) {
     this.taskList$ = this._store.pipe(select(selectTaskList));
   }
 
@@ -43,6 +47,7 @@ export class TodoListComponent implements OnInit {
       event.previousIndex,
       event.currentIndex,
     );
+    this._service.recalculateOrder(taskList);
 
     const action = updateCoreOrderRequest({taskList});
     this._store.dispatch(action);

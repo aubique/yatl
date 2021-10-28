@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Todos.ServerApp.Model;
 
@@ -19,11 +20,6 @@ namespace Todos.ServerApp.Service
 
         public Task AddTask(Task taskItem)
         {
-            taskItem.Core = new Core
-            {
-                Id = _taskItems.Count
-            };
-
             _taskItems.Add(taskItem);
             return taskItem;
         }
@@ -52,6 +48,22 @@ namespace Todos.ServerApp.Service
 
             task.IsComplete = completeDto.IsComplete;
             return completeDto;
+        }
+
+        public Core[] UpdateCoreList(Core[] coreList)
+        {
+            for (var index = _taskItems.Count - 1; index >= 0; index--)
+            {
+                var coreId = _taskItems[index].Core.Id;
+                var newCore = Array.Find(coreList, c => c.Id == coreId);
+
+                if (newCore != null)
+                {
+                    _taskItems[index].Core = newCore;
+                }
+            }
+
+            return coreList;
         }
     }
 }

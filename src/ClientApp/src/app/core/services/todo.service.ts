@@ -20,7 +20,7 @@ export class TodoService {
     }
   }
 
-  public recalculatePriority(taskList: TaskFull[]): void {
+  public recalculateOrder(taskList: TaskFull[]): void {
     TodoService.updateOrderByIndex(taskList);
 
     const action = loadTaskList({taskList});

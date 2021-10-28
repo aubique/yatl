@@ -13,5 +13,6 @@ namespace Todos.ServerApp.Service
 
         public int DeleteTask(int id);
         public CompleteDto UpdateComplete(int id, CompleteDto completeDto);
+        public Core[] UpdateCoreList(Core[] coreList);
     }
 }
