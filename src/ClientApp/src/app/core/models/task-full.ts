@@ -1,7 +1,8 @@
+import { TaskCore } from './task-core';
+
 export interface TaskFull {
 
-  id?: number;
-  // taskCore: TaskCore;
+  core: TaskCore;
 
   title: string;
   isComplete: boolean;

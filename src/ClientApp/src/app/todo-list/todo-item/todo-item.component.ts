@@ -22,7 +22,7 @@ export class TodoItemComponent implements OnInit {
       .subscribe(state => {
         console.log(state);
         const update = {
-          id: this._task.id,
+          id: this._task.core.id,
           changes: {
             isComplete: state,
           },
@@ -40,6 +40,10 @@ export class TodoItemComponent implements OnInit {
   }
 
   onClickDelete() {
-    this.doDeleteItem.emit(this._task.id);
+    this.doDeleteItem.emit(this._task.core.id);
+  }
+
+  onClickEdit() {
+    // TODO: implement functionality
   }
 }

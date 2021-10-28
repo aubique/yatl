@@ -19,7 +19,10 @@ namespace Todos.ServerApp.Service
 
         public Task AddTask(Task taskItem)
         {
-            taskItem.Id = _taskItems.Count;
+            taskItem.Core = new Core
+            {
+                Id = _taskItems.Count
+            };
 
             _taskItems.Add(taskItem);
             return taskItem;
@@ -28,7 +31,7 @@ namespace Todos.ServerApp.Service
         public Task ReplaceTask(int id, Task taskItem)
         {
             for (var index = _taskItems.Count - 1; index >= 0; index--)
-                if (_taskItems[index].Id == id)
+                if (_taskItems[index].Core.Id == id)
                     _taskItems[index] = taskItem;
 
             return taskItem;
@@ -37,7 +40,7 @@ namespace Todos.ServerApp.Service
         public int DeleteTask(int id)
         {
             for (var index = _taskItems.Count - 1; index >= 0; index--)
-                if (_taskItems[index].Id == id)
+                if (_taskItems[index].Core.Id == id)
                     _taskItems.RemoveAt(index);
 
             return id;
@@ -45,7 +48,7 @@ namespace Todos.ServerApp.Service
 
         public CompleteDto UpdateComplete(int id, CompleteDto completeDto)
         {
-            var task = _taskItems.Find(task => task.Id.Equals(id));
+            var task = _taskItems.Find(task => task.Core.Id.Equals(id));
 
             task.IsComplete = completeDto.IsComplete;
             return completeDto;

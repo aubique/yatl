@@ -1,27 +1,27 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { TaskFull } from '../models/task-full';
+import { compareByOrderFn } from '../../shared/const/array-operations.func';
 
 export interface TodoFeatureState {
-  // taskCore: TaskCoreState;
   taskState: TaskFullState;
   status: StatusState;
 }
 
-// export interface TaskCoreState extends EntityState<TaskCore> {
-// }
-
 export interface TaskFullState extends EntityState<TaskFull> {
-  selectTaskId: number;
+  //selectTaskId: number;
 }
 
-
-export function selectTaskId(taskFull: TaskFull): number {
-  // return taskFull.taskCore.id;
-  return taskFull.id;
+export function selectTaskId(task: TaskFull): number {
+  return task.core.id;
 }
+
+// export function selectTaskOrder(task: TaskFull): number {
+//   return task.core.order;
+// }
 
 export const taskFullAdapter: EntityAdapter<TaskFull> = createEntityAdapter<TaskFull>({
   selectId: selectTaskId,
+  sortComparer: compareByOrderFn,
 });
 
 export interface StatusState {
@@ -41,6 +41,6 @@ export interface StatusState {
   ongoingUpdateComplete: boolean;
   errorUpdateComplete: string | null;
 
-  // ongoingUpdateCoreList: boolean;
-  // errorUpdateCoreList: string | null;
+  ongoingUpdateCoreList: boolean;
+  errorUpdateCoreList: string | null;
 }

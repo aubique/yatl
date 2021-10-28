@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, mergeMap, switchMap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { EmptyError, of } from 'rxjs';
 import { ApiService } from '../services/api.service';
 import {
   addTask,
@@ -12,14 +12,16 @@ import {
   deleteTaskFail,
   deleteTaskRequest,
   deleteTaskSuccess,
-  getTaskList,
-  getTaskListFail,
-  getTaskListRequest,
-  getTaskListSuccess,
+  loadTaskList,
+  loadTaskListFail,
+  loadTaskListRequest,
+  loadTaskListSuccess,
   replaceTask,
   replaceTaskFail,
   replaceTaskRequest,
   replaceTaskSuccess,
+  updateCoreOrder,
+  updateCoreOrderRequest,
   updateTask,
   updateTaskFail,
   updateTaskRequest,
@@ -28,21 +30,25 @@ import {
 
 @Injectable()
 export class TaskEffects {
+  constructor(
+    private actions$: Actions,
+    private apiService: ApiService,
+  ) {
+  }
 
   getTaskListRequest$ = createEffect(() => this.actions$.pipe(
-    ofType(getTaskListRequest),
+    ofType(loadTaskListRequest),
     switchMap(() => {
       return this.apiService.getAllTasks()
         .pipe(
           mergeMap((taskList) => [
-            getTaskList({taskList}),
-            getTaskListSuccess(),
+            loadTaskList({taskList}),
+            loadTaskListSuccess(),
           ]),
-          catchError(error => of(getTaskListFail({error}))),
+          catchError(error => of(loadTaskListFail({error}))),
         );
     }),
   ));
-
   addTaskRequest$ = createEffect(() => this.actions$.pipe(
     ofType(addTaskRequest),
     switchMap((action) => {
@@ -56,7 +62,6 @@ export class TaskEffects {
         );
     }),
   ));
-
   replaceTaskRequest$ = createEffect(() => this.actions$.pipe(
     ofType(replaceTaskRequest),
     switchMap((action) => {
@@ -71,7 +76,6 @@ export class TaskEffects {
         );
     }),
   ));
-
   deleteTaskRequest$ = createEffect(() => this.actions$.pipe(
     ofType(deleteTaskRequest),
     switchMap((action) => {
@@ -86,7 +90,6 @@ export class TaskEffects {
         );
     }),
   ));
-
   updateTaskRequest$ = createEffect(() => this.actions$.pipe(
     ofType(updateTaskRequest),
     switchMap((action) => {
@@ -104,9 +107,20 @@ export class TaskEffects {
     }),
   ));
 
-  constructor(
-    private actions$: Actions,
-    private apiService: ApiService,
-  ) {
-  }
+  updateCoreOrderRequest$ = createEffect(() => this.actions$.pipe(
+    ofType(updateCoreOrderRequest),
+    switchMap((action) => {
+      const taskList = action.taskList;
+      const coreList = taskList.map(i => i.core);
+
+      return this.apiService.patchCoreList(coreList)
+        .pipe(
+          mergeMap(() => [
+            updateCoreOrder(),
+            loadTaskList({taskList}),
+          ]),
+          catchError(() => EmptyError),
+        );
+    }),
+  ));
 }

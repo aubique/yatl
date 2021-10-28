@@ -9,7 +9,7 @@ export const metaReducers: MetaReducer<TodoFeatureState>[] = !environment.produc
 export const initTaskFull: TaskFullState = taskFullAdapter.getInitialState({selectTaskId: null});
 export const taskFullReducer = createReducer(
   initTaskFull,
-  on(Actions.getTaskList, (state, {taskList}) => {
+  on(Actions.loadTaskList, (state, {taskList}) => {
     return taskFullAdapter.setAll(taskList, state);
   }),
   on(Actions.addTask, (state, {task}) => {
@@ -26,11 +26,9 @@ export const taskFullReducer = createReducer(
   }),
 );
 
-// export const taskCoreReducer = createReducer(null);
 export const statusReducer = createReducer(null);
 
 export const reducers: ActionReducerMap<TodoFeatureState> = {
-  // taskCore: taskCoreReducer,
   taskState: taskFullReducer,
   status: statusReducer,
 };

@@ -1,12 +1,6 @@
-// export const compareByPriorityFn = ((a: TaskFull, b: Task) => a.priority - b.priority);
+import { TaskFull } from '../../core/models/task-full';
 
-// export function updatePriorityByIndex(items: TaskFull[]): void {
-//   for (let index in items) {
-//     if (items.hasOwnProperty(index)) {
-//       items[index].priority = Number(index) + Number(1);
-//     }
-//   }
-// }
+export const compareByOrderFn = ((a: TaskFull, b: TaskFull) => a.core.order - b.core.order);
 
 /**
  * Moves an item one index in an array to another.

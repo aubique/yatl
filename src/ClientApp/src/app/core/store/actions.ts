@@ -2,8 +2,8 @@ import { createAction, props } from '@ngrx/store';
 import { TaskFull } from '../models/task-full';
 import { Update } from '@ngrx/entity';
 
-export const getTaskList = createAction(
-  '[TodoFeature] LoadTasks',
+export const loadTaskList = createAction(
+  '[TodoFeature] LoadTaskList',
   props<{ taskList: TaskFull[] }>(),
 );
 
@@ -27,6 +27,11 @@ export const updateTask = createAction(
   props<{ update: Update<TaskFull> }>(),
 );
 
+export const updateCoreOrder = createAction(
+  '[Item] UpdateCoreOrder',
+);
+
+
 // export const updateCoreList = createAction(
 //   '[TodoFeature] UpdateCoreList',
 //   props<{ taskCoreList: TaskCore[] }>(),
@@ -34,16 +39,16 @@ export const updateTask = createAction(
 
 ///
 
-export const getTaskListRequest = createAction(
-  '[TodoFeature] GetTaskRequest',
+export const loadTaskListRequest = createAction(
+  '[TodoFeature] LoadTaskListRequest',
 );
 
-export const getTaskListSuccess = createAction(
-  '[TodoFeature] GetTaskSuccess',
+export const loadTaskListSuccess = createAction(
+  '[TodoFeature] LoadTaskListSuccess',
 );
 
-export const getTaskListFail = createAction(
-  '[TodoFeature] GetTaskFail',
+export const loadTaskListFail = createAction(
+  '[TodoFeature] LoadTaskListFail',
   props<{ error: string }>(),
 );
 
@@ -101,4 +106,9 @@ export const updateTaskSuccess = createAction(
 export const updateTaskFail = createAction(
   '[TodoFeature] updateTaskFail',
   props<{ error: string }>(),
+);
+
+export const updateCoreOrderRequest = createAction(
+  '[Item] UpdateCoreOrderRequest',
+  props<{ taskList: TaskFull[] }>(),
 );

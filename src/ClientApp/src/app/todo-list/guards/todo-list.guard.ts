@@ -4,8 +4,8 @@ import { select, Store } from '@ngrx/store';
 import { forkJoin, Observable, of } from 'rxjs';
 import { catchError, switchMap, take, tap } from 'rxjs/operators';
 import { TodoFeatureState } from '../../core/store/states';
-import { selectCountTotal } from '../../core/store/selectors';
-import { getTaskListRequest } from '../../core/store/actions';
+import { selectTaskListSize } from '../../core/store/selectors';
+import { loadTaskListRequest } from '../../core/store/actions';
 
 @Injectable()
 export class TodoListGuard implements CanActivate {
@@ -27,7 +27,7 @@ export class TodoListGuard implements CanActivate {
 
   private checkTasks() {
     return this.store.pipe(
-      select(selectCountTotal),
+      select(selectTaskListSize),
       tap(total => {
         console.log(`checkTasks(): total = ${total}`);
         if (total === 0) {
@@ -39,7 +39,7 @@ export class TodoListGuard implements CanActivate {
   }
 
   private dispatchLoadTaskList() {
-    const action = getTaskListRequest();
+    const action = loadTaskListRequest();
     this.store.dispatch(action);
   }
 

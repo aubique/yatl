@@ -14,12 +14,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { HeaderComponent } from './components/header/header.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    HeaderComponent,
+  ],
   imports: [
-    // Angular
+    // Service Modules
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -38,6 +41,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     DragDropModule,
   ],
   exports: [
+    // Components
+    HeaderComponent,
+    // Service Modules
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,

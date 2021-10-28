@@ -1,10 +1,10 @@
 <div class="header-container">
   <mat-toolbar class="rounded" color="primary">
 
-    <!--<p fxFlex>-->
-    <!--Tasks-->
-    <!--<span class="faded">({{facade.getUndoneListSize()}})</span>-->
-    <!--</p>-->
+    <p fxFlex>
+      Tasks
+      <span class="faded">({{ _numberOfTasks | async }})</span>
+    </p>
 
     <button (click)="generateItem()"
             class="add-button"

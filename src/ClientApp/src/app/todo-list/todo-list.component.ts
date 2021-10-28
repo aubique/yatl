@@ -3,8 +3,8 @@ import { TaskFull } from '../core/models/task-full';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { TodoFeatureState } from '../core/store/states';
-import { getTaskFullList } from '../core/store/selectors';
-import { deleteTaskRequest, updateTaskRequest } from '../core/store/actions';
+import { selectTaskList } from '../core/store/selectors';
+import { deleteTaskRequest, updateCoreOrderRequest, updateTaskRequest } from '../core/store/actions';
 import { Update } from '@ngrx/entity';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { moveItemInArray } from '../shared/const/array-operations.func';
@@ -21,7 +21,7 @@ export class TodoListComponent implements OnInit {
   taskList$: Observable<TaskFull[]>;
 
   constructor(private _store: Store<TodoFeatureState>) {
-    this.taskList$ = this._store.pipe(select(getTaskFullList));
+    this.taskList$ = this._store.pipe(select(selectTaskList));
   }
 
   ngOnInit(): void {
@@ -44,8 +44,7 @@ export class TodoListComponent implements OnInit {
       event.currentIndex,
     );
 
-    // const action = updateCorePriorityRequest({taskList});
-    // this._store.dispatch(action);
-    // this._service.recalculatePriority(itemList);
+    const action = updateCoreOrderRequest({taskList});
+    this._store.dispatch(action);
   }
 }

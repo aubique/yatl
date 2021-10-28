@@ -3,14 +3,11 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { throwIfAlreadyLoaded } from './services/module-import.guard';
 import { HttpClientModule } from '@angular/common/http';
-import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { RouterModule } from '@angular/router';
 
 
 @NgModule({
-  declarations: [
-    NavMenuComponent,
-  ],
+  declarations: [],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -18,9 +15,7 @@ import { RouterModule } from '@angular/router';
     RouterModule,
   ],
   providers: [],
-  exports: [
-    NavMenuComponent,
-  ],
+  exports: [],
 })
 export class CoreModule {
 

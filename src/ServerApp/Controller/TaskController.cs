@@ -11,8 +11,8 @@ namespace Todos.ServerApp.Controllers
     public class TaskController : ControllerBase
     {
         private const char WHITESPACE_SEPARATOR = ' ';
-        private readonly ITaskService _service;
         private readonly ILogger _logger;
+        private readonly ITaskService _service;
 
         public TaskController(ILogger<TaskController> logger, ITaskService service)
         {

@@ -1,6 +1,5 @@
 @import url('~@angular/material/prebuilt-themes/indigo-pink.css');
 @import url('https://fonts.googleapis.com/css?family=Roboto');
-@import 'src/assets/styles/vars.scss';
 
 * {
   box-sizing: border-box;
@@ -25,13 +24,13 @@ body {
 }
 
 .faded {
-  /*color: $color-faded;*/
+  color: #aabbcc;
 }
 
 .center-screen-x {
   position: fixed;
   left: 50%;
-/ / top: 50 %;
+  /*top: 50 %;*/
   text-align: center;
   transform: translate(-50%, -50%);
 }
