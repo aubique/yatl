@@ -29,7 +29,7 @@ export class TodoListGuard implements CanActivate {
     return this.store.pipe(
       select(selectTaskListSize),
       tap(total => {
-        console.log(`checkTasks(): total = ${total}`);
+        // console.log(`checkTasks(): total = ${total}`);
         if (total === 0) {
           this.dispatchLoadTaskList();
         }

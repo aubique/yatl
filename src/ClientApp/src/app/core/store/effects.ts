@@ -49,6 +49,7 @@ export class TaskEffects {
         );
     }),
   ));
+
   addTaskRequest$ = createEffect(() => this.actions$.pipe(
     ofType(addTaskRequest),
     switchMap((action) => {
@@ -69,13 +70,14 @@ export class TaskEffects {
       return this.apiService.putTask(task)
         .pipe(
           mergeMap(() => [
-            replaceTask({task: task}),
+            replaceTask({task}),
             replaceTaskSuccess(),
           ]),
           catchError(error => of(replaceTaskFail({error}))),
         );
     }),
   ));
+
   deleteTaskRequest$ = createEffect(() => this.actions$.pipe(
     ofType(deleteTaskRequest),
     switchMap((action) => {
@@ -90,6 +92,7 @@ export class TaskEffects {
         );
     }),
   ));
+
   updateTaskRequest$ = createEffect(() => this.actions$.pipe(
     ofType(updateTaskRequest),
     switchMap((action) => {

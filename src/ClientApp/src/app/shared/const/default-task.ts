@@ -1,13 +1,13 @@
 import { TaskFull } from '../../core/models/task-full';
 import { TaskCore } from '../../core/models/task-core';
 
-export const DefaultTaskFull = {
+export const DefaultTask = {
   core: {
-    id: 999,
-    order: 0,
+    id: 0,
+    order: 1,
   } as TaskCore,
 
-  title: 'default-task',
+  title: '',
   isComplete: false,
-  notes: 'default-text',
+  notes: '',
 } as TaskFull;

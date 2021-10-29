@@ -67,7 +67,7 @@ export const addTaskFail = createAction(
 );
 
 export const replaceTaskRequest = createAction(
-  '[TodoFeature] UpdateTaskRequest',
+  '[TodoFeature] ReplaceTaskRequest',
   props<{ task: TaskFull }>(),
 );
 

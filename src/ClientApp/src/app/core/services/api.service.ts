@@ -70,7 +70,6 @@ export class ApiService {
 
   public patchCoreList(coreList: TaskCore[]): Observable<any> {
     const url = `${ApiService.API_URL}`;
-    console.log(url);
     return this.http.patch<void>(url, coreList, this.httpOptions);
   }
 }

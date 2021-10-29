@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TaskFull } from '../../core/models/task-full';
@@ -11,20 +11,20 @@ import { TaskFull } from '../../core/models/task-full';
 export class DialogMenuComponent {
 
   form: FormGroup;
-  idItem: number;
-  titleItem: string;
+  _idItem: number;
+  _titleItem: string;
 
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<DialogMenuComponent>,
-    @Inject(MAT_DIALOG_DATA) taskItem: TaskFull,
+    @Inject(MAT_DIALOG_DATA) dialogData: TaskFull,
   ) {
-    this.idItem = taskItem.core.id;
-    this.titleItem = taskItem.title;
+    this._idItem = dialogData.core.id;
+    this._titleItem = dialogData.title;
 
     // Build a FormGroup
     this.form = fb.group({
-      'title': [taskItem.title, [
+      'title': [dialogData.title, [
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9 _-]+$'),
       ]],

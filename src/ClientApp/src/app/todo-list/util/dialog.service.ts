@@ -1,10 +1,10 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { TaskFull } from '../../core/models/task-full';
-import { DefaultTaskFull } from '../../shared/const/default-task-full';
+import { DefaultTask } from '../../shared/const/default-task';
 import { Store } from '@ngrx/store';
 import { TodoFeatureState } from '../../core/store/states';
-import { addTaskRequest, replaceTask } from '../../core/store/actions';
+import { addTaskRequest, replaceTaskRequest } from '../../core/store/actions';
 import { DialogMenuComponent } from '../dialog-menu/dialog-menu.component';
 
 @Injectable()
@@ -17,7 +17,7 @@ export class DialogService {
   }
 
   public createItemDialog(): void {
-    this.openDialog(DefaultTaskFull,
+    this.openDialog(DefaultTask,
       (task) => {
         const action = addTaskRequest({task});
         this._store.dispatch(action);
@@ -27,7 +27,7 @@ export class DialogService {
   public editItemDialog(taskFull: TaskFull): void {
     this.openDialog(taskFull,
       (task) => {
-        const action = replaceTask({task});
+        const action = replaceTaskRequest({task});
         this._store.dispatch(action);
       });
   }
@@ -43,10 +43,12 @@ export class DialogService {
       {data: task},
     );
 
-    dialogRef.afterClosed().subscribe((submitData) => {
+    dialogRef.afterClosed().subscribe((submitData: Partial<TaskFull>) => {
       if (submitData) {
-        task.title = submitData.title;
-        cbDispatchAction(task);
+        const taskClone = JSON.parse(JSON.stringify(task)) as TaskFull;
+        taskClone.title = submitData.title;
+
+        cbDispatchAction(taskClone);
       }
     });
   }

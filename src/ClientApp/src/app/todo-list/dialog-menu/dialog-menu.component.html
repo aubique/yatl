@@ -1,13 +1,15 @@
 <form (ngSubmit)="onSaveSubmit()" [formGroup]="form">
 
   <mat-toolbar color="primary">
-    <div *ngIf="idItem; else newItem">
-      {{titleItem}}<span class="faded">&nbsp;(id:{{idItem}})</span>
+    <div *ngIf="_idItem; else newItem">
+      {{_titleItem}}<span class="faded">&nbsp;(id:{{_idItem}})</span>
     </div>
-    <ng-template #newItem><span>New Todo</span></ng-template>
 
+    <ng-template #newItem><span>New Todo</span></ng-template>
   </mat-toolbar>
+
   <mat-form-field appearance="fill">
+
     <mat-label>Title</mat-label>
     <label>
       <input formControlName="title"

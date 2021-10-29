@@ -12,8 +12,6 @@ import { CardItemComponent } from './card-item/card-item.component';
 import { DialogMenuComponent } from './dialog-menu/dialog-menu.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DialogService } from './util/dialog.service';
-import { AppComponent } from '../app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const DIALOG_REF_DEFAULT: Provider = {
   provide: MatDialogRef,
