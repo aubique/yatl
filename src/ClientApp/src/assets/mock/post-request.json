@@ -1,5 +1,8 @@
 {
-  "id": 3,
+  "core": {
+    "id": 3,
+    "order": 3
+  },
   "title": "item-three",
   "isComplete": false,
   "notes": "text-three"

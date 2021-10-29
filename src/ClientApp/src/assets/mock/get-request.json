@@ -1,12 +1,18 @@
 [
   {
-    "id": 1,
+    "core": {
+      "id": 1,
+      "order": 2
+    },
     "title": "item-one",
     "isComplete": false,
     "notes": "text-one"
   },
   {
-    "id": 2,
+    "core": {
+      "id": 2,
+      "order": 1
+    },
     "title": "item-two",
     "isComplete": false,
     "notes": "text-two"

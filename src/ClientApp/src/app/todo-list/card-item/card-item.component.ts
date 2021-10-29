@@ -2,21 +2,24 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { TaskFull } from '../../core/models/task-full';
 import { FormControl } from '@angular/forms';
 import { Update } from '@ngrx/entity';
+import { DialogService } from '../util/dialog.service';
 
 @Component({
-  selector: 'app-todo-item',
-  templateUrl: './todo-item.component.html',
-  styleUrls: ['./todo-item.component.scss'],
+  selector: 'app-card-item',
+  templateUrl: './card-item.component.html',
+  styleUrls: ['./card-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TodoItemComponent implements OnInit {
+export class CardItemComponent {
 
   _task: TaskFull;
   checkBoxField: FormControl;
   @Output() doToggleComplete: EventEmitter<Update<TaskFull>> = new EventEmitter();
   @Output() doDeleteItem: EventEmitter<number> = new EventEmitter();
 
-  constructor() {
+  constructor(
+    private _dialogService: DialogService,
+  ) {
     this.checkBoxField = new FormControl(false);
     this.checkBoxField.valueChanges
       .subscribe(state => {
@@ -36,14 +39,11 @@ export class TodoItemComponent implements OnInit {
     this.checkBoxField.setValue(this._task.isComplete, {emitEvent: false});
   }
 
-  ngOnInit() {
-  }
-
   onClickDelete() {
     this.doDeleteItem.emit(this._task.core.id);
   }
 
   onClickEdit() {
-    // TODO: implement functionality
+    this._dialogService.editItemDialog(this._task);
   }
 }

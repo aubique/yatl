@@ -40,8 +40,6 @@ export class ApiService {
   public putTask(task: TaskFull): Observable<any> {
     const url = `${ApiService.API_URL}/${task.core.id}`;
 
-    console.log('triggered puTask()');
-
     return this.http.put<void>(url, task, this.httpOptions);
   }
 
