@@ -4,11 +4,10 @@ import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { TodoFeatureState } from '../core/store/states';
 import { selectTaskList } from '../core/store/selectors';
-import { deleteTaskRequest, updateCoreOrderRequest, updateTaskRequest } from '../core/store/actions';
+import { deleteTaskRequest, loadTaskList, updateCoreOrderRequest, updateTaskRequest } from '../core/store/actions';
 import { Update } from '@ngrx/entity';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { moveItemInArray } from '../shared/const/array-operations.func';
-import { TodoService } from '../core/services/todo.service';
+import { moveItemInArray, updateOrderByIndex } from '../shared/utils';
 
 @Component({
   selector: 'app-todo-list',
@@ -17,18 +16,14 @@ import { TodoService } from '../core/services/todo.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 
 })
-export class TodoListComponent implements OnInit {
+export class TodoListComponent {
 
   taskList$: Observable<TaskFull[]>;
 
   constructor(
     private _store: Store<TodoFeatureState>,
-    private _service: TodoService,
   ) {
     this.taskList$ = this._store.pipe(select(selectTaskList));
-  }
-
-  ngOnInit(): void {
   }
 
   onCompleteToggle(update: Update<TaskFull>) {
@@ -47,9 +42,18 @@ export class TodoListComponent implements OnInit {
       event.previousIndex,
       event.currentIndex,
     );
-    this._service.recalculateOrder(taskList);
+    // if moveItemInArray() canceled do not proceed
+    if (taskList === undefined) {
+      return;
+    }
+    updateOrderByIndex(taskList);
 
-    const action = updateCoreOrderRequest({taskList});
-    this._store.dispatch(action);
+    // Reload view after update of the order fields
+    const actionBefore = loadTaskList({taskList});
+    this._store.dispatch(actionBefore);
+
+    // Patch Core[] to the backend
+    const actionAfter = updateCoreOrderRequest({taskList});
+    this._store.dispatch(actionAfter);
   }
 }

@@ -20,15 +20,16 @@ export class ApiService {
     };
   }
 
+  // GET-request to fetch all the todos
   public getAllTasks(): Observable<TaskFull[]> {
     const url = ApiService.API_URL;
 
     return this.http
       // .get<Array<TaskFull>>('/assets/mock/get-request.json');
       .get<Array<TaskFull>>(url);
-    // .pipe(map(tasks => tasks.slice(0, 6)));
   }
 
+  // POST-request to add new task
   public postTask(task: TaskFull): Observable<TaskFull> {
     const url = ApiService.API_URL;
 
@@ -37,39 +38,32 @@ export class ApiService {
     // .get<TaskFull>('/assets/mock/post-request.json');
   }
 
+  // PUT-request to replace the existing task by ID
   public putTask(task: TaskFull): Observable<any> {
     const url = `${ApiService.API_URL}/${task.core.id}`;
 
     return this.http.put<void>(url, task, this.httpOptions);
   }
 
-  // public deleteTask(task: TaskFull): Observable<any> {
+  // DELETE-request to remove task by ID
   public deleteTask(taskId: number): Observable<any> {
     const url = `${ApiService.API_URL}/${taskId}`;
 
     return this.http.delete<void>(url);
   }
 
-  // public patchTaskCoreList(taskCoreList: TaskCore[]): Observable<any> {
-  //   const url = ApiService.API_URL;
-  //
-  //   return this.http.patch<void>(url, taskCoreList, this.httpOptions);
-  // }
-
-  public patchTaskComplete(task: TaskFull): Observable<any> {
-    const url = `${ApiService.API_URL}/${task.core.id}`;
-    const taskOrderDto = {isComplete: task.isComplete};
-
-    return this.http.patch<void>(url, taskOrderDto, this.httpOptions);
-  }
-
+  // PATCH-request to update `isComplete` for a task
   public patchPartialTask(id: number | string, taskCompleteDto: Partial<TaskFull>): Observable<any> {
     const url = `${ApiService.API_URL}/${id}`;
+
     return this.http.patch<void>(url, taskCompleteDto, this.httpOptions);
   }
 
+  // PATCH-request to update only the most frequent information (i.e. order-field)
+  // by updating the Core part of the Task list
   public patchCoreList(coreList: TaskCore[]): Observable<any> {
     const url = `${ApiService.API_URL}`;
+
     return this.http.patch<void>(url, coreList, this.httpOptions);
   }
 }

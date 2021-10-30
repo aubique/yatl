@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TodoListComponent } from './todo-list.component';
-import { TodoListGuard } from './util/todo-list.guard';
+import { TodoListGuard } from './todo-list.guard';
 
 
 const routes: Routes = [

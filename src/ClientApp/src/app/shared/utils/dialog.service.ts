@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { TaskFull } from '../../core/models/task-full';
-import { DefaultTask } from '../../shared/const/default-task';
 import { Store } from '@ngrx/store';
 import { TodoFeatureState } from '../../core/store/states';
 import { addTaskRequest, replaceTaskRequest } from '../../core/store/actions';
-import { DialogMenuComponent } from '../dialog-menu/dialog-menu.component';
+import { DialogMenuComponent } from '../../shared/components/dialog-menu/dialog-menu.component';
+import { defaultTask } from './default-task';
 
 @Injectable()
 export class DialogService {
@@ -16,14 +16,16 @@ export class DialogService {
   ) {
   }
 
+  // from Add-button of the HeaderComponent (nav-menu)
   public createItemDialog(): void {
-    this.openDialog(DefaultTask,
+    this.openDialog(defaultTask,
       (task) => {
         const action = addTaskRequest({task});
         this._store.dispatch(action);
       });
   }
 
+  // from Edit-button on the CardItemComponent
   public editItemDialog(taskFull: TaskFull): void {
     this.openDialog(taskFull,
       (task) => {
@@ -43,10 +45,13 @@ export class DialogService {
       {data: task},
     );
 
-    dialogRef.afterClosed().subscribe((submitData: Partial<TaskFull>) => {
+    dialogRef.afterClosed().subscribe((submitData) => {
       if (submitData) {
-        const taskClone = JSON.parse(JSON.stringify(task)) as TaskFull;
-        taskClone.title = submitData.title;
+        const taskClone = {core: task.core} as TaskFull;
+
+        taskClone.title = submitData.titleCtrl;
+        taskClone.notes = submitData.noteCtrl;
+        taskClone.dueDate = submitData.dateCtrl;
 
         cbDispatchAction(taskClone);
       }

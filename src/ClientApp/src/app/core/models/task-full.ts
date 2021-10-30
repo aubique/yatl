@@ -6,7 +6,7 @@ export interface TaskFull {
 
   title: string;
   isComplete: boolean;
-  dueDate?: null;
+  dueDate?: string;
   notes?: string;
 }
 

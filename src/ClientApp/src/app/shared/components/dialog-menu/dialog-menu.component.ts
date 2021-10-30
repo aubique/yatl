@@ -1,14 +1,14 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TaskFull } from '../../core/models/task-full';
+import { TaskFull } from '../../../core/models/task-full';
 
 @Component({
   selector: 'app-dialog-menu',
   templateUrl: './dialog-menu.component.html',
   styleUrls: ['./dialog-menu.component.scss'],
 })
-export class DialogMenuComponent {
+export class DialogMenuComponent implements OnInit {
 
   form: FormGroup;
   _idItem: number;
@@ -22,13 +22,21 @@ export class DialogMenuComponent {
     this._idItem = dialogData.core.id;
     this._titleItem = dialogData.title;
 
-    // Build a FormGroup
+    // Build a FormGroup to validate before submit
     this.form = fb.group({
-      'title': [dialogData.title, [
+      'titleCtrl': [dialogData.title, [
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9 _-]+$'),
       ]],
+      'dateCtrl': [dialogData.dueDate, []],
+      'noteCtrl': [dialogData.notes, [
+        Validators.pattern('^[a-zA-Z0-9 ?!-@:,\.\n]+$'),
+      ]],
     });
+  }
+
+  ngOnInit(): void {
+    // this.form.controls['dateCtrl'].valueChanges.subscribe(d => console.log(d));
   }
 
   onSaveSubmit(): void {

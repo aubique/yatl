@@ -1,0 +1,61 @@
+<form (ngSubmit)="onSaveSubmit()" [formGroup]="form">
+
+  <div fxLayout="column wrap" fxLayoutAlign="start stretch">
+    <!--Card-Header-->
+    <mat-toolbar color="primary">
+      <div *ngIf="_idItem; else newItem">
+        {{_titleItem}}<span class="faded">&nbsp;(id:{{_idItem}})</span>
+      </div>
+
+      <ng-template #newItem><span>New Todo</span></ng-template>
+    </mat-toolbar>
+    <!--Card-Header-->
+
+    <!--Title-->
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input formControlName="titleCtrl"
+             matInput
+             placeholder="Name your todo"
+      >
+      <mat-hint *ngIf="form.get('titleCtrl').invalid && form.get('titleCtrl').touched">
+        <span *ngIf="form.get('titleCtrl').errors?.required">Field cannot be empty</span>
+        <span
+          *ngIf="form.get('titleCtrl').errors?.pattern">Title may contain only Latin characters and whitespaces</span>
+      </mat-hint>
+    </mat-form-field>
+    <!--Title-->
+
+    <!--Date-->
+    <mat-form-field appearance="fill">
+      <mat-label>Date</mat-label>
+      <input formControlName="dateCtrl"
+             matInput
+             placeholder="Pick a due date"
+             type="date"
+      >
+    </mat-form-field>
+    <!--Date-->
+
+    <!--Notes-->
+    <mat-form-field appearance="fill">
+      <mat-label>Notes</mat-label>
+      <textarea formControlName="noteCtrl"
+                matInput
+                placeholder="Description"
+      ></textarea>
+      <mat-hint *ngIf="form.get('noteCtrl').invalid">
+        <span
+          *ngIf="form.get('noteCtrl').errors?.pattern">Note area may contain only Latin characters and whitespaces</span>
+      </mat-hint>
+    </mat-form-field>
+    <!--Notes-->
+  </div>
+
+  <div fxLayout="row wrap" fxLayoutAlign="center stretch">
+    <!--Buttons-->
+    <button fxFlex mat-raised-button [disabled]="!form.valid" type="submit">Save</button>
+    <button fxFlex (click)="onCloseClick()" mat-raised-button type="button">Close</button>
+    <!--Buttons-->
+  </div>
+</form>

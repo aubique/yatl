@@ -1,14 +1,13 @@
-<!--<h1 id="tableLabel">Todo List</h1>-->
-<!--<p *ngIf="!taskList$"><em>Loading...</em></p>-->
-<div>
+<div *ngIf="(taskList$ | async) as items">
   <mat-list (cdkDropListDropped)="onDropInside($event)"
-            *ngIf="taskList$ | async as items"
+            *ngIf="items.length !== 0; else noItems"
             [cdkDropListData]="items"
-            cdkDropList>
-
+            cdkDropList
+  >
     <mat-list-item *ngFor="let item of items"
                    cdkDrag
-                   class="drop-item-wrapper">
+                   class="drop-item-wrapper"
+    >
       <mat-card fxFlex>
 
         <app-card-item
@@ -21,5 +20,11 @@
     </mat-list-item>
 
   </mat-list>
+
+  <ng-template #noItems>
+    <div class="no-items-container" fxLayout="row wrap" fxLayoutAlign="space-around stretch">
+      <span>&ensp;&thinsp;No more tasks for the day... </span><span>☕</span><div fxFlexOffset="50%"></div>
+    </div>
+  </ng-template>
 </div>
 

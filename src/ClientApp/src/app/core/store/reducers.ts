@@ -26,9 +26,6 @@ export const taskFullReducer = createReducer(
   }),
 );
 
-export const statusReducer = createReducer(null);
-
 export const reducers: ActionReducerMap<TodoFeatureState> = {
   taskState: taskFullReducer,
-  status: statusReducer,
 };

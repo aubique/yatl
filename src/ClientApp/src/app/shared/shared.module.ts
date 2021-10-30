@@ -1,10 +1,9 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Provider } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,11 +14,26 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { HeaderComponent } from './components/header/header.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { DialogMenuComponent } from './components/dialog-menu/dialog-menu.component';
+import { TodoListGuard } from '../todo-list/todo-list.guard';
+import { DialogService } from './utils/dialog.service';
 
+const DIALOG_REF_DEFAULT: Provider = {
+  provide: MatDialogRef,
+  useValue: {},
+};
+
+const DIALOG_DATA_DEFAULT: Provider = {
+  provide: MAT_DIALOG_DATA,
+  useValue: {},
+};
 
 @NgModule({
   declarations: [
     HeaderComponent,
+    DialogMenuComponent,
   ],
   imports: [
     // Service Modules
@@ -27,37 +41,47 @@ import { HeaderComponent } from './components/header/header.component';
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+    MatListModule,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
     MatCardModule,
-    MatListModule,
-    MatProgressBarModule,
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
     MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     DragDropModule,
+  ],
+  entryComponents: [DialogMenuComponent],
+  providers: [
+    [TodoListGuard],
+    DialogService,
+    DIALOG_DATA_DEFAULT,
+    DIALOG_REF_DEFAULT,
   ],
   exports: [
     // Components
     HeaderComponent,
+    DialogMenuComponent,
     // Service Modules
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+    MatListModule,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
     MatCardModule,
-    MatListModule,
-    MatProgressBarModule,
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
     MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     DragDropModule,
   ],
 })

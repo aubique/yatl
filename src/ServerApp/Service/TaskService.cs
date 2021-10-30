@@ -8,8 +8,8 @@ namespace Todos.ServerApp.Service
 {
     public class TaskService : ITaskService
     {
-        private readonly List<Task> _taskItems;
         private readonly ILogger _logger;
+        private readonly List<Task> _taskItems;
 
         public TaskService(ILogger<TaskService> logger)
         {
@@ -28,7 +28,7 @@ namespace Todos.ServerApp.Service
             {
                 var id = _taskItems.Select(t => t.Core.Id).ToArray().Max() + 1;
                 var order = _taskItems.Select(t => t.Core.Order).ToArray().Max() + 1;
-                taskItem.Core = new Core() {Id = id, Order = order};
+                taskItem.Core = new Core {Id = id, Order = order};
             }
 
             _taskItems.Add(taskItem);

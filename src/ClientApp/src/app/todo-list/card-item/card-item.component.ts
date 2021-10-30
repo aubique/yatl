@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { TaskFull } from '../../core/models/task-full';
 import { FormControl } from '@angular/forms';
 import { Update } from '@ngrx/entity';
-import { DialogService } from '../util/dialog.service';
+import { DialogService } from '../../shared/utils/dialog.service';
 
 @Component({
   selector: 'app-card-item',
@@ -23,7 +23,6 @@ export class CardItemComponent {
     this.checkBoxField = new FormControl(false);
     this.checkBoxField.valueChanges
       .subscribe(state => {
-        console.log(state);
         const update = {
           id: this._task.core.id,
           changes: {
