@@ -1,15 +1,15 @@
 using Shouldly;
-using Todos.ServerApp.Controllers;
+using Todos.ServerApp.Service;
 using Xunit;
 
-namespace TodosTests.ServerApp.Controllers
+namespace TodosTests.ServerApp.Service
 {
-    public class TodosControllerTests
+    public class TaskServiceTests
     {
         [Fact]
         public void Should_TitleCase_WhenStringIsSingleCharacter()
         {
-            var singleCharacterString = TaskController.ToTitleCase("h");
+            var singleCharacterString = TaskService.ToTitleCase("h");
 
             singleCharacterString.ShouldBe("H");
         }

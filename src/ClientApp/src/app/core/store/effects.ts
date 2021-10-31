@@ -54,11 +54,10 @@ export class TaskEffects {
   replaceTaskRequest$ = createEffect(() => this.actions$.pipe(
     ofType(replaceTaskRequest),
     switchMap((action) => {
-      const task = action.task;
       // PUT Task
-      return this.apiService.putTask(task)
+      return this.apiService.putTask(action.task)
         .pipe(
-          mergeMap(() => [
+          mergeMap((task) => [
             replaceTask({task}),
           ]),
           catchError(error => of(replaceTaskFail({error}))),

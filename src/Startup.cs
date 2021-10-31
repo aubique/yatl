@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Todos.ServerApp.Repository;
 using Todos.ServerApp.Service;
 
 namespace Todos
@@ -24,10 +25,12 @@ namespace Todos
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
             services.AddSingleton<ITaskService, TaskService>();
+            services.AddSingleton<ITaskRepository, TaskRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
+            IHostApplicationLifetime lifetime, ITaskService taskService)
         {
             if (env.IsDevelopment())
             {
@@ -63,6 +66,8 @@ namespace Todos
 
                 if (env.IsDevelopment()) spa.UseAngularCliServer("start");
             });
+
+            lifetime.ApplicationStarted.Register(() => taskService.loadFromFile());
         }
     }
 }

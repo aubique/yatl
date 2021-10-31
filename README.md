@@ -1,12 +1,16 @@
-# TODOs Coding Exercise
+# TODO list
 
-This is the TODOs coding exercise base solution. It contains a .NET Core server along with an Angular client. In order to work with it and complete the exercise it is recommended using Visual Studio. If Visual Studio is not available for you, you can use any other text editor and the .NET Core command line interface.
+Todo List app consisting Angular and .NET Core
 
-## Prerequisites
- - Visual Studio, Visual Studio Code, or any text editor
- - .NET Core 3.1 SDK [Download](https://dotnet.microsoft.com/download)
+| Todo list | Edit menu |
+|---|---|
+| ![alt text](./.img/screenshot_1.jpg "Screenshot #1") | ![alt text](./.img/screenshot_2.jpg "Screenshot #2") |
 
-## Using the command line interface
+## Run code using CLI
+
+If you'd like to run and test the app on your local machine.
+There are some steps required to be done before you deploy it locally.
+
 ### Install dependencies
 - In the project folder run: `dotnet restore`
 - In the **/src/ClientApp** folder run: `npm ci`
@@ -16,3 +20,5 @@ This is the TODOs coding exercise base solution. It contains a .NET Core server 
 
 ### Run the solution watching changes
 - In the project folder run: `dotnet watch run`
+
+> You can access the application on `localhost:5001`

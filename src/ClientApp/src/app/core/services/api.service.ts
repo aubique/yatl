@@ -39,10 +39,10 @@ export class ApiService {
   }
 
   // PUT-request to replace the existing task by ID
-  public putTask(task: TaskFull): Observable<any> {
+  public putTask(task: TaskFull): Observable<TaskFull> {
     const url = `${ApiService.API_URL}/${task.core.id}`;
 
-    return this.http.put<void>(url, task, this.httpOptions);
+    return this.http.put<TaskFull>(url, task, this.httpOptions);
   }
 
   // DELETE-request to remove task by ID

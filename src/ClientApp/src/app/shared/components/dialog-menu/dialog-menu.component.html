@@ -54,8 +54,14 @@
 
   <div fxLayout="row wrap" fxLayoutAlign="center stretch">
     <!--Buttons-->
-    <button fxFlex mat-raised-button [disabled]="!form.valid" type="submit">Save</button>
-    <button fxFlex (click)="onCloseClick()" mat-raised-button type="button">Close</button>
+    <button fxFlex
+            mat-raised-button
+            [disabled]="!form.valid"
+            type="submit">Save</button>
+    <button fxFlex
+            (click)="onCloseClick()"
+            mat-raised-button
+            type="button">Close</button>
     <!--Buttons-->
   </div>
 </form>

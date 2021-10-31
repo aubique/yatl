@@ -1,78 +1,126 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Todos.ServerApp.Model;
+using Todos.ServerApp.Repository;
 
 namespace Todos.ServerApp.Service
 {
     public class TaskService : ITaskService
     {
+        private const char WHITESPACE_SEPARATOR = ' ';
         private readonly ILogger _logger;
-        private readonly List<Task> _taskItems;
+        private readonly ITaskRepository _repository;
 
-        public TaskService(ILogger<TaskService> logger)
+        public TaskService(
+            ILogger<TaskService> logger, ITaskRepository repository)
         {
             _logger = logger;
-            _taskItems = new List<Task>();
+            _repository = repository;
         }
 
-        public List<Task> GetTask()
+        public List<Task> GetTaskList()
         {
-            return _taskItems;
+            return _repository.GetAll();
         }
 
-        public Task AddTask(Task taskItem)
+        public Task AddTask(Task task)
         {
-            if (_taskItems.Count > 0)
-            {
-                var id = _taskItems.Select(t => t.Core.Id).ToArray().Max() + 1;
-                var order = _taskItems.Select(t => t.Core.Order).ToArray().Max() + 1;
-                taskItem.Core = new Core {Id = id, Order = order};
-            }
+            task.Title = ToTitleCase(task.Title);
+            _repository.SaveNew(task);
 
-            _taskItems.Add(taskItem);
-
-            return taskItem;
+            return task;
         }
 
-        public Task ReplaceTask(int id, Task taskItem)
+        public Task ReplaceTask(int id, Task task)
         {
-            for (var index = _taskItems.Count - 1; index >= 0; index--)
-                if (_taskItems[index].Core.Id == id)
-                    _taskItems[index] = taskItem;
+            task.Title = ToTitleCase(task.Title);
+            _repository.SaveEdit(task, id);
 
-            return taskItem;
+            return task;
         }
 
         public int DeleteTask(int id)
         {
-            for (var index = _taskItems.Count - 1; index >= 0; index--)
-                if (_taskItems[index].Core.Id == id)
-                    _taskItems.RemoveAt(index);
-
+            _repository.RemoveById(id);
             return id;
         }
 
         public CompleteDto UpdateComplete(int id, CompleteDto completeDto)
         {
-            var task = _taskItems.Find(task => task.Core.Id.Equals(id));
+            var task = _repository.findById(id);
 
             task.IsComplete = completeDto.IsComplete;
             return completeDto;
         }
 
-        public Core[] UpdateCoreList(Core[] coreList)
+        public List<Core> UpdateCoreList(Core[] coreList)
         {
-            for (var index = _taskItems.Count - 1; index >= 0; index--)
+            var tasks = _repository.GetAll();
+
+            for (var index = tasks.Count - 1; index >= 0; index--)
             {
-                var coreId = _taskItems[index].Core.Id;
+                var coreId = tasks[index].Core.Id;
                 var newCore = Array.Find(coreList, c => c.Id == coreId);
 
-                if (newCore != null) _taskItems[index].Core = newCore;
+                if (newCore != null) tasks[index].Core = newCore;
             }
 
-            return coreList;
+            _repository.SaveAll(tasks);
+
+            return coreList.ToList();
+        }
+
+        public List<Task> loadFromFile()
+        {
+            List<Task> items;
+            using (StreamReader file = File.OpenText(@"Todos.json"))
+            {
+                var jsonSerializer = new JsonSerializer();
+
+                items = (List<Task>) jsonSerializer.Deserialize(file, typeof(List<Task>));
+            }
+
+            var formattedItems = items.Select(t =>
+            {
+                t.Title = ToTitleCase(t.Title);
+                return t;
+            }).ToList();
+
+            return _repository.SaveAll(formattedItems);
+        }
+
+        /// <summary>
+        ///     Convert a string to title case
+        /// </summary>
+        public static string ToTitleCase(string title)
+        {
+            if (string.IsNullOrEmpty(title)) return title;
+
+            // Split a string to the list of strings based on whitespace character
+            var initialWords = title.Split(WHITESPACE_SEPARATOR);
+            var resultWords = new List<string>();
+
+            // Fill the list with the capitalized words
+            foreach (var word in initialWords) resultWords.Add(Capitalize(word));
+
+            return string.Join(WHITESPACE_SEPARATOR, resultWords);
+        }
+
+        /// <summary>
+        ///     Capitalize the first letter of each string
+        /// </summary>
+        /// <param name="word">A word without spaces</param>
+        private static string Capitalize(string word)
+        {
+            var chars = word.ToLower().ToCharArray();
+
+            chars[0] = char.ToUpper(chars[0]);
+
+            return new string(chars);
         }
     }
 }
