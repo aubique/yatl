@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, Effect, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, mergeMap, switchMap } from 'rxjs/operators';
+import { catchError, mergeMap, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { ApiService } from '../services/api.service';
 import {
   addTask,
   addTaskFail,
@@ -15,12 +14,14 @@ import {
   loadTaskListRequest,
   replaceTask,
   replaceTaskFail,
-  replaceTaskRequest, updateCoreOrderFail,
+  replaceTaskRequest,
+  updateCoreOrderFail,
   updateCoreOrderRequest,
   updateTask,
   updateTaskFail,
   updateTaskRequest,
-} from './actions';
+} from '@store/actions';
+import { ApiService } from '@services/api.service';
 
 @Injectable()
 export class TaskEffects {

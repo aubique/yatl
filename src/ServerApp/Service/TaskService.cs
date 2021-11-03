@@ -11,7 +11,7 @@ namespace Todos.ServerApp.Service
 {
     public class TaskService : ITaskService
     {
-        private const char WHITESPACE_SEPARATOR = ' ';
+        private const char WhitespaceSeparator = ' ';
         private readonly ILogger _logger;
         private readonly ITaskRepository _repository;
 
@@ -51,7 +51,7 @@ namespace Todos.ServerApp.Service
 
         public CompleteDto UpdateComplete(int id, CompleteDto completeDto)
         {
-            var task = _repository.findById(id);
+            var task = _repository.FindById(id);
 
             task.IsComplete = completeDto.IsComplete;
             return completeDto;
@@ -74,10 +74,10 @@ namespace Todos.ServerApp.Service
             return coreList.ToList();
         }
 
-        public List<Task> loadFromFile()
+        public List<Task> LoadFromFile()
         {
             List<Task> items;
-            using (StreamReader file = File.OpenText(@"Todos.json"))
+            using (var file = File.OpenText(@"Todos.json"))
             {
                 var jsonSerializer = new JsonSerializer();
 
@@ -101,13 +101,13 @@ namespace Todos.ServerApp.Service
             if (string.IsNullOrEmpty(title)) return title;
 
             // Split a string to the list of strings based on whitespace character
-            var initialWords = title.Split(WHITESPACE_SEPARATOR);
+            var initialWords = title.Split(WhitespaceSeparator);
             var resultWords = new List<string>();
 
             // Fill the list with the capitalized words
             foreach (var word in initialWords) resultWords.Add(Capitalize(word));
 
-            return string.Join(WHITESPACE_SEPARATOR, resultWords);
+            return string.Join(WhitespaceSeparator, resultWords);
         }
 
         /// <summary>

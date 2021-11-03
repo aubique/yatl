@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { TaskFull } from '../models/task-full';
 import { Update } from '@ngrx/entity';
+import { TaskFull } from '@models/task-full';
 
 // GET Task[]
 export const loadTaskList = createAction(

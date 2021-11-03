@@ -1,4 +1,4 @@
-import { TaskFull } from '../../core/models/task-full';
+import { TaskFull } from '@models/task-full';
 
 // Keep up to date the order after DragAndDrop
 export function updateOrderByIndex(items: TaskFull[]): void {
@@ -26,7 +26,7 @@ export function moveItemInArray<T = any>(arraySource: T[], fromIndex: number, to
   const to = clamp(toIndex, array.length - 1);
 
   if (from === to) {
-    return;
+    return [];
   }
 
   const target = array[from];

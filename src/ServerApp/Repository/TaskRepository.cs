@@ -19,11 +19,6 @@ namespace Todos.ServerApp.Repository
             return _getAllCopy();
         }
 
-        private List<Task> _getAllCopy()
-        {
-            return JsonConvert.DeserializeObject<List<Task>>(JsonConvert.SerializeObject(_taskList));
-        }
-
         public void RemoveById(int id)
         {
             for (var index = _taskList.Count - 1; index >= 0; index--)
@@ -45,16 +40,16 @@ namespace Todos.ServerApp.Repository
             return task;
         }
 
-        public Task SaveEdit(Task task, int Id)
+        public Task SaveEdit(Task task, int id)
         {
             for (var index = _taskList.Count - 1; index >= 0; index--)
-                if (_taskList[index].Core.Id == Id)
+                if (_taskList[index].Core.Id == id)
                     _taskList[index] = task;
 
             return task;
         }
 
-        public Task findById(int id)
+        public Task FindById(int id)
         {
             return _taskList.Find(task => task.Core.Id.Equals(id));
         }
@@ -64,6 +59,11 @@ namespace Todos.ServerApp.Repository
             _taskList = tasks;
 
             return _getAllCopy();
+        }
+
+        private List<Task> _getAllCopy()
+        {
+            return JsonConvert.DeserializeObject<List<Task>>(JsonConvert.SerializeObject(_taskList));
         }
     }
 }

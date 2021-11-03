@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { taskFullAdapter, TodoFeatureState } from './states';
+import { taskFullAdapter, TodoFeatureState } from '@store/states';
 
 export const getTodoFeatureState = createFeatureSelector<TodoFeatureState>(
   'todo-feature',

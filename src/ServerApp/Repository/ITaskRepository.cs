@@ -9,7 +9,7 @@ namespace Todos.ServerApp.Repository
         void RemoveById(int id);
         Task SaveNew(Task task);
         Task SaveEdit(Task task, int id);
-        Task findById(int id);
+        Task FindById(int id);
         List<Task> SaveAll(List<Task> tasks);
     }
 }

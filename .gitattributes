@@ -1,0 +1,7 @@
+src/ClientApp/e2e/* linguist-vendored
+src/ClientApp/src/environments/* linguist-vendored
+src/ClientApp/src/assets/* linguist-vendored
+
+src/ClientApp/src/*.ts linguist-detectable=false
+README.md linguist-documentation=true
+

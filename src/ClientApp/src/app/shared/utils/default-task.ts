@@ -1,5 +1,5 @@
-import { TaskFull } from '../../core/models/task-full';
-import { TaskCore } from '../../core/models/task-core';
+import { TaskFull } from '@models/task-full';
+import { TaskCore } from '@models/task-core';
 
 // Bring date in ISO 8601 format
 export const today =

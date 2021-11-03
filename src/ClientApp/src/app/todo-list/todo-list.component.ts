@@ -1,13 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { TaskFull } from '../core/models/task-full';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { TaskFull } from '@models/task-full';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
-import { TodoFeatureState } from '../core/store/states';
-import { selectTaskList } from '../core/store/selectors';
-import { deleteTaskRequest, loadTaskList, updateCoreOrderRequest, updateTaskRequest } from '../core/store/actions';
+import { TodoFeatureState } from '@store/states';
+import { selectTaskList } from '@store/selectors';
+import { deleteTaskRequest, loadTaskList, updateCoreOrderRequest, updateTaskRequest } from '@store/actions';
 import { Update } from '@ngrx/entity';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { moveItemInArray, updateOrderByIndex } from '../shared/utils';
+import { moveItemInArray, updateOrderByIndex } from '@shared/utils';
 
 @Component({
   selector: 'app-todo-list',
@@ -43,7 +43,7 @@ export class TodoListComponent {
       event.currentIndex,
     );
     // if moveItemInArray() canceled do not proceed
-    if (taskList === undefined) {
+    if (taskList === []) {
       return;
     }
     updateOrderByIndex(taskList);

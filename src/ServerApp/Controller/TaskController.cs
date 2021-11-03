@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Todos.ServerApp.Model;
 using Todos.ServerApp.Service;
 
-namespace Todos.ServerApp.Controllers
+namespace Todos.ServerApp.Controller
 {
     [Route("[controller]")]
     [ApiController]
@@ -45,29 +43,23 @@ namespace Todos.ServerApp.Controllers
         public ActionResult<int> DeleteTask(int id)
         {
             _service.DeleteTask(id);
-            _logger.LogInformation("num of tasks: {}", _service.GetTaskList().Count);
             return id;
         }
 
         [HttpPatch("/api/todo/{id:int}")]
         public EmptyResult UpdateComplete(int id, CompleteDto completeDto)
         {
-            _logger.LogInformation("id: {}, isComplete: {}", id, completeDto.IsComplete);
-
             _service.UpdateComplete(id, completeDto);
-
             return new EmptyResult();
         }
 
         [HttpPatch("/api/todo")]
         public EmptyResult UpdateCoreList(Core[] coreList)
         {
-            _logger.LogInformation("========\nnum of core tasks: {}", coreList.Length);
-            Array.ForEach(coreList, c =>
-                _logger.LogInformation("coreId: {}, coreOrder: {}", c.Id, c.Order));
-
+            //_logger.LogInformation("========\nnum of core tasks: {}", coreList.Length);
+            //Array.ForEach(coreList, c =>
+            //    _logger.LogInformation("coreId: {}, coreOrder: {}", c.Id, c.Order));
             _service.UpdateCoreList(coreList);
-
             return new EmptyResult();
         }
     }

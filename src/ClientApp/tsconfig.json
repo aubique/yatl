@@ -1,21 +1,64 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "./src/",
+    "paths": {
+      "@shared/*": [
+        "app/shared/*"
+      ],
+      "@store/*": [
+        "app/core/store/*"
+      ],
+      "@models/*": [
+        "app/core/models/*"
+      ],
+      "@services/*": [
+        "app/core/services/*"
+      ],
+      "@todo-feature/*": [
+        "app/todo-list/*"
+      ],
+      "@env/*": [
+        "environments/*"
+      ]
+    },
     "module": "esnext",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
-    "declaration": false,
+    "declaration": true,
+    "importHelpers": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
     "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "target": "es2015",
+    "noFallthroughCasesInSwitch": true,
+    "target": "es2019",
+    "types": [
+      "angular"
+    ],
     "typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
-      "es2017",
+      "es2020",
       "dom"
+    ],
+    "esModuleInterop": true,
+    "inlineSourceMap": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "angularCompilerOptions": {
+      "fullTemplateTypeCheck": true,
+      "strictInjectionParameters": true
+    },
+    "exclude": [
+      "dist/**/*",
+      "dist-schema/**",
+      "**/node_modules/**/*",
+      "tests/**/*",
+      "tools/**/*"
     ]
   }
 }

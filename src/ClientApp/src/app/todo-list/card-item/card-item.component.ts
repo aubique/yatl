@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { TaskFull } from '../../core/models/task-full';
+import { TaskFull } from '@models/task-full';
 import { FormControl } from '@angular/forms';
 import { Update } from '@ngrx/entity';
-import { DialogService } from '../../shared/utils/dialog.service';
+import { DialogService } from '@shared/utils/dialog.service';
+import { Task } from 'protractor/built/taskScheduler';
 
 @Component({
   selector: 'app-card-item',
@@ -20,6 +21,7 @@ export class CardItemComponent {
   constructor(
     private _dialogService: DialogService,
   ) {
+    this._task = {} as TaskFull;
     this.checkBoxField = new FormControl(false);
     this.checkBoxField.valueChanges
       .subscribe(state => {

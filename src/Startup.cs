@@ -64,10 +64,10 @@ namespace Todos
 
                 spa.Options.SourcePath = "ClientApp";
 
-                if (env.IsDevelopment()) spa.UseAngularCliServer("start");
+                if (env.IsDevelopment()) spa.UseAngularCliServer("start --no-progress");
             });
 
-            lifetime.ApplicationStarted.Register(() => taskService.loadFromFile());
+            lifetime.ApplicationStarted.Register(() => taskService.LoadFromFile());
         }
     }
 }

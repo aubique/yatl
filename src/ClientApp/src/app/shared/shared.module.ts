@@ -17,8 +17,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DialogMenuComponent } from './components/dialog-menu/dialog-menu.component';
-import { TodoListGuard } from '../todo-list/todo-list.guard';
-import { DialogService } from './utils/dialog.service';
+import { TodoListGuard } from '@todo-feature/todo-list.guard';
+import { DialogService } from '@shared/utils/dialog.service';
 
 const DIALOG_REF_DEFAULT: Provider = {
   provide: MatDialogRef,

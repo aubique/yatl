@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { TaskFull } from '../../core/models/task-full';
+import { TaskFull } from '@models/task-full';
 import { Store } from '@ngrx/store';
-import { TodoFeatureState } from '../../core/store/states';
-import { addTaskRequest, replaceTaskRequest } from '../../core/store/actions';
-import { DialogMenuComponent } from '../../shared/components/dialog-menu/dialog-menu.component';
-import { defaultTask } from './default-task';
+import { TodoFeatureState } from '@store/states';
+import { addTaskRequest, replaceTaskRequest } from '@store/actions';
+import { DialogMenuComponent } from '@shared/components/dialog-menu/dialog-menu.component';
+import { defaultTask } from '@shared/utils/default-task';
 
 @Injectable()
 export class DialogService {

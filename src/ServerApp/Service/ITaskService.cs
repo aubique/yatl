@@ -15,6 +15,6 @@ namespace Todos.ServerApp.Service
         public CompleteDto UpdateComplete(int id, CompleteDto completeDto);
         public List<Core> UpdateCoreList(Core[] coreList);
 
-        public List<Task> loadFromFile();
+        public List<Task> LoadFromFile();
     }
 }

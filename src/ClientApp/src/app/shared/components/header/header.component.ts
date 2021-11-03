@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { TodoFeatureState } from '../../../core/store/states';
-import { selectTaskListSize } from '../../../core/store/selectors';
-import { DialogService } from '../../utils/dialog.service';
+import { TodoFeatureState } from '@store/states';
+import { selectTaskListSize } from '@store/selectors';
+import { DialogService } from '@shared/utils/dialog.service';
 
 @Component({
   selector: 'app-header',

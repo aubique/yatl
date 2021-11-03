@@ -2,7 +2,7 @@ import { ActionReducerMap, createReducer, MetaReducer, on } from '@ngrx/store';
 import { taskFullAdapter, TaskFullState, TodoFeatureState } from './states';
 import * as Actions from './actions';
 import { deleteTask, updateTask } from './actions';
-import { environment } from '../../../environments/environment';
+import { environment } from '@env/environment';
 
 export const metaReducers: MetaReducer<TodoFeatureState>[] = !environment.production ? [] : [];
 

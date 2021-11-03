@@ -3,9 +3,9 @@ import { CanActivate } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { forkJoin, Observable, of } from 'rxjs';
 import { catchError, switchMap, take, tap } from 'rxjs/operators';
-import { TodoFeatureState } from '../core/store/states';
-import { selectTaskListSize } from '../core/store/selectors';
-import { loadTaskListRequest } from '../core/store/actions';
+import { TodoFeatureState } from '@store/states';
+import { selectTaskListSize } from '@store/selectors';
+import { loadTaskListRequest } from '@store/actions';
 
 @Injectable()
 export class TodoListGuard implements CanActivate {

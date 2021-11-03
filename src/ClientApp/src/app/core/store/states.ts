@@ -1,6 +1,6 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { TaskFull } from '../models/task-full';
-import { compareByOrderFn } from '../../shared/utils';
+import { TaskFull } from '@models/task-full';
+import { compareByOrderFn } from '@shared/utils';
 
 export interface TodoFeatureState {
   taskState: TaskFullState;
