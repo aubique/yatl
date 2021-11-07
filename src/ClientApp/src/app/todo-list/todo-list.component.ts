@@ -4,10 +4,9 @@ import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { TodoFeatureState } from '@store/states';
 import { selectTaskList } from '@store/selectors';
-import { deleteTaskRequest, loadTaskList, updateCoreOrderRequest, updateTaskRequest } from '@store/actions';
+import { deleteTaskRequest, updateCoreOrderThenRequest, updateTaskRequest } from '@store/actions';
 import { Update } from '@ngrx/entity';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { moveItemInArray, updateOrderByIndex } from '@shared/utils';
 
 @Component({
   selector: 'app-todo-list',
@@ -37,23 +36,11 @@ export class TodoListComponent {
   }
 
   onDropInside(event: CdkDragDrop<TaskFull[]>): void {
-    const taskList = moveItemInArray(
-      event.container.data,
-      event.previousIndex,
-      event.currentIndex,
-    );
-    // if moveItemInArray() canceled do not proceed
-    if (taskList === []) {
-      return;
-    }
-    updateOrderByIndex(taskList);
-
-    // Reload view after update of the order fields
-    const actionBefore = loadTaskList({taskList});
-    this._store.dispatch(actionBefore);
-
-    // Patch Core[] to the backend
-    const actionAfter = updateCoreOrderRequest({taskList});
-    this._store.dispatch(actionAfter);
+    const action = updateCoreOrderThenRequest({
+      data: event.container.data,
+      prevIdx: event.previousIndex,
+      currIdx: event.currentIndex,
+    });
+    this._store.dispatch(action);
   }
 }

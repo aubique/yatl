@@ -18,10 +18,10 @@
              matInput
              placeholder="Name your todo"
       >
-      <mat-hint *ngIf="form.get('titleCtrl').invalid && form.get('titleCtrl').touched">
-        <span *ngIf="form.get('titleCtrl').errors?.required">Field cannot be empty</span>
+      <mat-hint *ngIf="form.get('titleCtrl')?.invalid && form.get('titleCtrl')?.touched">
+        <span *ngIf="form.get('titleCtrl')?.errors?.required">Field cannot be empty</span>
         <span
-          *ngIf="form.get('titleCtrl').errors?.pattern">Title may contain only Latin characters and whitespaces</span>
+          *ngIf="form.get('titleCtrl')?.errors?.pattern">Title may contain only Latin characters and whitespaces</span>
       </mat-hint>
     </mat-form-field>
     <!--Title-->
@@ -44,9 +44,9 @@
                 matInput
                 placeholder="Description"
       ></textarea>
-      <mat-hint *ngIf="form.get('noteCtrl').invalid">
+      <mat-hint *ngIf="form.get('noteCtrl')?.invalid">
         <span
-          *ngIf="form.get('noteCtrl').errors?.pattern">Note area may contain only Latin characters and whitespaces</span>
+          *ngIf="form.get('noteCtrl')?.errors?.pattern">Note area may contain only Latin characters and whitespaces</span>
       </mat-hint>
     </mat-form-field>
     <!--Notes-->

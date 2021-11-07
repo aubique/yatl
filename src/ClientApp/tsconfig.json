@@ -1,4 +1,15 @@
 {
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
+  },
+  "exclude": [
+    "dist/**/*",
+    "dist-schema/**",
+    "**/node_modules/**/*",
+    "tests/**/*",
+    "tools/**/*"
+  ],
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./src/",
@@ -48,17 +59,6 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "angularCompilerOptions": {
-      "fullTemplateTypeCheck": true,
-      "strictInjectionParameters": true
-    },
-    "exclude": [
-      "dist/**/*",
-      "dist-schema/**",
-      "**/node_modules/**/*",
-      "tests/**/*",
-      "tools/**/*"
-    ]
+    "experimentalDecorators": true
   }
 }

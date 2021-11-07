@@ -2,6 +2,7 @@ import { createAction, props } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
 import { TaskFull } from '@models/task-full';
 
+
 // GET Task[]
 export const loadTaskList = createAction(
   '[TodoFeature] LoadTaskList',
@@ -72,6 +73,10 @@ export const updateTaskFail = createAction(
 );
 
 // PATCH Core[]
+export const updateCoreOrderThenRequest = createAction(
+  '[TodoFeature] UpdateCoreOrderThenRequest',
+  props<{ data: TaskFull[], prevIdx: number, currIdx: number }>(),
+);
 export const updateCoreOrderRequest = createAction(
   '[TodoFeature] UpdateCoreOrderRequest',
   props<{ taskList: TaskFull[] }>(),

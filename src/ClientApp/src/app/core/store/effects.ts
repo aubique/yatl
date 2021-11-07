@@ -1,114 +1,119 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, Effect, ofType } from '@ngrx/effects';
-import { catchError, mergeMap, switchMap } from 'rxjs/operators';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { catchError, exhaustMap, mergeMap, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
-import {
-  addTask,
-  addTaskFail,
-  addTaskRequest,
-  deleteTask,
-  deleteTaskFail,
-  deleteTaskRequest,
-  loadTaskList,
-  loadTaskListFail,
-  loadTaskListRequest,
-  replaceTask,
-  replaceTaskFail,
-  replaceTaskRequest,
-  updateCoreOrderFail,
-  updateCoreOrderRequest,
-  updateTask,
-  updateTaskFail,
-  updateTaskRequest,
-} from '@store/actions';
+import * as Action from '@store/actions';
 import { ApiService } from '@services/api.service';
+import { changeOrderOfTasks } from '@shared/utils';
 
 @Injectable()
 export class TaskEffects {
-  @Effect()
-  loadTaskListRequest = createEffect(() => this.actions$.pipe(
-    ofType(loadTaskListRequest),
+  loadTaskListRequest$ = createEffect(() => this.actions$.pipe(
+    ofType(Action.loadTaskListRequest),
     switchMap(() => {
       // GET Task[]
-      return this.apiService.getAllTasks()
+      return this.api.getAllTasks()
         .pipe(
           mergeMap((taskList) => [
-            loadTaskList({taskList}),
+            Action.loadTaskList({taskList}),
           ]),
-          catchError(error => of(loadTaskListFail({error}))),
+          catchError(error => of(Action.loadTaskListFail({error}))),
         );
     }),
   ));
   addTaskRequest$ = createEffect(() => this.actions$.pipe(
-    ofType(addTaskRequest),
+    ofType(Action.addTaskRequest),
     switchMap((action) => {
       // POST Task
-      return this.apiService.postTask(action.task)
+      return this.api.postTask(action.task)
         .pipe(
           mergeMap((taskFromApi) => [
-            addTask({task: taskFromApi}),
+            Action.addTask({task: taskFromApi}),
           ]),
-          catchError(error => of(addTaskFail({error}))),
+          catchError(error => of(Action.addTaskFail({error}))),
         );
     }),
   ));
   replaceTaskRequest$ = createEffect(() => this.actions$.pipe(
-    ofType(replaceTaskRequest),
+    ofType(Action.replaceTaskRequest),
     switchMap((action) => {
       // PUT Task
-      return this.apiService.putTask(action.task)
+      return this.api.putTask(action.task)
         .pipe(
           mergeMap((task) => [
-            replaceTask({task}),
+            Action.replaceTask({task}),
           ]),
-          catchError(error => of(replaceTaskFail({error}))),
+          catchError(error => of(Action.replaceTaskFail({error}))),
         );
     }),
   ));
   deleteTaskRequest$ = createEffect(() => this.actions$.pipe(
-    ofType(deleteTaskRequest),
-    switchMap((action) => {
+    ofType(Action.deleteTaskRequest),
+    exhaustMap((action) => {
       const id = action.id;
       // DELETE Task
-      return this.apiService.deleteTask(action.id)
+      return this.api.deleteTask(action.id)
         .pipe(
           mergeMap(() => [
-            deleteTask({id}),
+            Action.deleteTask({id}),
           ]),
-          catchError(error => of(deleteTaskFail({error}))),
+          catchError(error => of(Action.deleteTaskFail({error}))),
         );
     }),
   ));
   updateTaskRequest$ = createEffect(() => this.actions$.pipe(
-    ofType(updateTaskRequest),
-    switchMap((action) => {
+    ofType(Action.updateTaskRequest),
+    exhaustMap((action) => {
       const update = action.update;
       // PATCH Task
-      return this.apiService.patchPartialTask(update.id, update.changes)
+      return this.api.patchPartialTask(update.id, update.changes)
         .pipe(
           mergeMap(() => [
-            updateTask({update}),
+            Action.updateTask({update}),
           ]),
-          catchError(error => of(updateTaskFail({error}))),
+          catchError(error => of(Action.updateTaskFail({error}))),
         );
     }),
   ));
   updateCoreOrderRequest$ = createEffect(() => this.actions$.pipe(
-    ofType(updateCoreOrderRequest),
-    switchMap((action) => {
-      const coreList = action.taskList.map(i => i.core);
-      // PATCH Core[]
-      return this.apiService.patchCoreList(coreList)
-        .pipe(
-          mergeMap(() => []),
-          catchError(error => of(updateCoreOrderFail({error}))),
-        );
-    }),
-  ));
+      ofType(Action.updateCoreOrderRequest),
+      switchMap((action) => {
+        const coreList = action.taskList.map(i => i.core);
+        // PATCH Core[]
+        return this.api.patchCoreList(coreList);
+      }),
+      catchError(error => of(Action.updateCoreOrderFail({error}))),
+    ), {dispatch: false},
+  );
+  updateCoreOrderThenRequest$ = createEffect(() => this.actions$.pipe(
+    ofType(Action.updateCoreOrderThenRequest),
+    // tap(action => {
+    //   console.log(action.data);
+    //   console.log(`previous index: ${action.prevIdx}`);
+    //   console.log(`current index: ${action.currIdx}`);
+    // }),
+    switchMap(action => {
+      // Get a list clone with the updated order
+      return of(changeOrderOfTasks(
+        action.data,
+        action.prevIdx,
+        action.currIdx,
+      )).pipe(
+        mergeMap(taskList => {
+            return [
+              Action.loadTaskList({taskList}),
+              Action.updateCoreOrderRequest({taskList}),
+            ];
+          },
+        ),
+        catchError(error => of(Action.updateCoreOrderFail(error))),
+      );
+    })),
+  );
 
   constructor(
     private actions$: Actions,
-    private apiService: ApiService,
+    private api: ApiService,
   ) {
   }
 }

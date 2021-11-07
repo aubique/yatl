@@ -3,7 +3,6 @@ import { TaskFull } from '@models/task-full';
 import { FormControl } from '@angular/forms';
 import { Update } from '@ngrx/entity';
 import { DialogService } from '@shared/utils/dialog.service';
-import { Task } from 'protractor/built/taskScheduler';
 
 @Component({
   selector: 'app-card-item',

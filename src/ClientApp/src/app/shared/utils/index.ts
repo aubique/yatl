@@ -20,13 +20,14 @@ export const compareByOrderFn = ((a: TaskFull, b: TaskFull) => a.core.order - b.
  * @param fromIndex Starting index of the item.
  * @param toIndex Index to which the item should be moved.
  */
-export function moveItemInArray<T = any>(arraySource: T[], fromIndex: number, toIndex: number): T[] {
+export function moveItemInArrayDeprecated<T = any>(arraySource: T[], fromIndex: number, toIndex: number): T[] {
   const array = JSON.parse(JSON.stringify(arraySource));
   const from = clamp(fromIndex, array.length - 1);
   const to = clamp(toIndex, array.length - 1);
 
   if (from === to) {
-    return [];
+    // return [];
+    return array;
   }
 
   const target = array[from];
@@ -37,6 +38,22 @@ export function moveItemInArray<T = any>(arraySource: T[], fromIndex: number, to
   }
 
   array[to] = target;
+  return array;
+}
+
+export function changeOrderOfTasks(arraySource: TaskFull[], fromIndex: number, toIndex: number): TaskFull[] {
+  const array = JSON.parse(JSON.stringify(arraySource)) as TaskFull[];
+  const from = clamp(fromIndex, array.length - 1);
+  const to = clamp(toIndex, array.length - 1);
+
+  if (from === to) {
+    // return [];
+    return array;
+  }
+
+  array[from].core.order = to;
+  array[to].core.order = from;
+
   return array;
 }
 
